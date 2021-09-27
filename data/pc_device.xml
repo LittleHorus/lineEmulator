@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE inautomatic_device>
+<inautomatic_device version="1.0">
+	<device>
+		<alias>pc</alias>
+		<version>1.0</version> 
+		<address>0x01</address>
+	</device>
+	<elements>
+		<element alias="error_code">
+			<address>0xEE00</address>
+			<caption>Код ошибки, произошедшей на ПК линии</caption>
+			<rw>true</rw>
+			<description>Если не произошла ошибка, то 0</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Ошибка отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Не соответствуют GTIN задания и кода на линии</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="pc_status">
+			<address>0x0001</address>
+			<rw>true</rw>
+			<description>Статус работы ПК линии</description>
+			<type>uint8</type>
+			<caption>Статус</caption>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Неопределено</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Инициализация</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="assigned_job_id">
+			<address>0x0002</address>
+			<type>uint32</type>
+			<caption>Номер присвоенного задания</caption>
+			<rw>true</rw>
+			<description>Номер задания, которое присвоено мастером</description>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+		<element alias="current_session_id">
+			<address>0x0003</address>
+			<caption>Запуск задания на выполнение</caption>
+			<rw>true</rw>
+			<description>Значение устанавливается в 1 со стороны пк мастера. Сбрасывается в 0, если возникла ошибка или задание завершилось</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+		<element alias="interrupt_current_job">
+			<address>0x0004</address>
+			<caption>Прерывание выполнения задания</caption>
+			<rw>true</rw>
+			<description>Значение устанавливается в 1 со стороны пк мастера. Сбрасывается в 0, если возникла ошибка или задание завершилось</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Выключено</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Включено</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="job_status">
+			<address>0x0005</address>
+			<rw>true</rw>
+			<description>Состояние выполнения задания</description>
+			<type>uint8</type>
+			<caption>Статус</caption>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Не установлено</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Выполняется</text>
+				</enum>
+				<enum id="3">
+					<value>2</value>
+					<text>Завершается</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="completed_task_num">
+			<address>0x0010</address>
+			<caption>Задание завершено</caption>
+			<rw>false</rw>
+			<description>Задание под указанным номером завершено</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+		<element alias="interrupted_task_num">
+			<address>0x0011</address>
+			<caption>Задание прервано</caption>
+			<rw>false</rw>
+			<description>Задание под указанным номером прервано</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+
+		<element alias="counter_scanned">
+			<address>0x0101</address>
+			<caption>Получено КМ</caption>
+			<rw>false</rw>
+			<description>Получено КМ от устройства считывания</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+		<element alias="counter_scanned_in_db">
+			<address>0x0102</address>
+			<caption>Записано КМ</caption>
+			<rw>false</rw>
+			<description>Получено КМ от устройства считывания и записано в БД</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+		<element alias="counter_remove_scanned">
+			<address>0x0103</address>
+			<caption>Получено КМ для вычитания</caption>
+			<rw>false</rw>
+			<description>Получено КМ от устройства считывания для вычитания из БД</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+		<element alias="counter_remove_scanned_in_db">
+			<address>0x0104</address>
+			<caption>Вычтено КМ</caption>
+			<rw>false</rw>
+			<description>Получено КМ от устройства считывания и вычтено из БД</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+		<element alias="counter_product_result">
+			<address>0x0105</address>
+			<caption>Записано - вычтено КМ</caption>
+			<rw>false</rw>
+			<description>Итого КМ записанных в БД на данной линии за вычетом удалённых</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+		<element alias="counter_product_result_as_box">
+			<address>0x0106</address>
+			<caption>Записано - вычтено КМ разделённое на количество штук в коробке</caption>
+			<rw>false</rw>
+			<description>Итого КМ записанных в БД на данной линии за вычетом удалённых и раздёленное на количество штук в коробке</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+
+		<element alias="counter_sent_to_printer">
+			<address>0x0111</address>
+			<caption>Отправлено КМ в принтер</caption>
+			<rw>false</rw>
+			<description>Отправлено КМ в принтер</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+		<element alias="counter_printed_ctrl_counter">
+			<address>0x0112</address>
+			<caption>Напечатано КМ (ПО)</caption>
+			<rw>false</rw>
+			<description>Напечатано КМ (по счётчику в ПО)</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+		<element alias="counter_in_queue">
+			<address>0x0113</address>
+			<caption>КМ в очереди</caption>
+			<rw>false</rw>
+			<description>КМ в очереди печати</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+		<element alias="counter_printed_printer_counter">
+			<address>0x0114</address>
+			<caption>Напечатано КМ (принтер)</caption>
+			<rw>false</rw>
+			<description>Напечатано КМ (по счётчику в принтере)</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+		<element alias="counter_printed_total">
+			<address>0x0115</address>
+			<caption>Записано - вычтено КМ</caption>
+			<rw>false</rw>
+			<description>Итого КМ записанных в БД на данной линии за вычетом удалённых</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+		<element alias="counter_product_result_as_box">
+			<address>0x0116</address>
+			<caption>Записано - вычтено КМ разделённое на количество штук в коробке</caption>
+			<rw>false</rw>
+			<description>Итого КМ записанных в БД на данной линии за вычетом удалённых и раздёленное на количество штук в коробке</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+			</data_presentation>
+		</element>
+
+		<element alias="counter_dmc_errors_no_read">
+			<address>0x0387</address>
+			<caption>Количество не прочитанных кодово DMC</caption>
+			<rw>false</rw>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="counter_dmc_errors_1d">
+			<address>0x0388</address>
+			<caption>Количество не верных ключей DMC  1D</caption>
+			<rw>false</rw>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="counter_detected_products_before_packer">
+			<address>0x0389</address>
+			<caption>Количество увиденного продукта перед упаковщиком</caption>
+			<rw>false</rw>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="counter_not_detected_products_before_packer">
+			<address>0x038A</address>
+			<caption>Количество не увиденного продукта перед упаковщиком</caption>
+			<rw>false</rw>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="counter_finished_products">
+			<address>0x038B</address>
+			<caption>Количество готового продукта продукта</caption>
+			<rw>false</rw>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+
+	</elements>
+</inautomatic_device>
+

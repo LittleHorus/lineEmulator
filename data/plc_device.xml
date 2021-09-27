@@ -1,0 +1,3198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE inautomatic_device>
+<inautomatic_device version="1.0">
+	<device>
+		<alias>plc</alias>
+		<version>1.0</version>
+		<address>0x02</address>
+	</device>
+	<elements>
+		<element alias="item_per_box">
+			<address>0x0003</address>
+			<type>uint32</type>
+			<caption>Количество продукта в одной коробке</caption>
+			<plc_var>CommonTargetPuckNumber BufferRetainUint32[0]*</plc_var>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="distance_pack_cutting_sort_1">
+			<address>0x0004</address>
+			<caption>Расстояние от точки руба упаковки до первой сортировщицы</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="distance_pack_cutting_sort_2">
+			<address>0x0005</address>
+			<caption>Расстояние от точки руба упаковки до второй сортировщицы</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="distance_pack_cutting_pnevmo">
+			<address>0x0006</address>
+			<caption>Расстояние от ножа до пневматического сортировщика</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="distance_pnevmo_sort_1">
+			<address>0x0007</address>
+			<caption>Растояние от пневмотического сортировщика до первой сортировщицы</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="distance_pnevmo_sort_2">
+			<address>0x0008</address>
+			<caption>Растояние от пневмотического сортировщика до второй сортировщицы</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="origin_angle_product_detection_start">
+			<address>0x0009</address>
+			<caption>Начальная позиция наличия продукта</caption>
+			<rw>true</rw>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="origin_angle_product_detection_end">
+			<address>0x000A</address>
+			<caption>Конечная позиция наличия продукта</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="finite_angle_product_detection_start">
+			<address>0x000B</address>
+			<caption>Начальная позиция отсутствия продукта</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="finite_angle_product_detection_end">
+			<address>0x000C</address>
+			<caption>Конечная позиция отсутствия продукта</caption>
+			<rw>true</rw>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="angle_ending_product_detection_end">
+			<address>0x000D</address>
+			<caption> Разница на пуск авторасчета сложного алгоритма определения продукта</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="sending_dmc_cam_to_plc">
+			<address>0x000E</address>
+			<caption>Позиция захода кода в буффер ПЛК</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="cam_trigger_mode_1_enc">
+			<address>0x000F</address>
+			<caption>Режим 1. Фото по энкодеру. Позиция</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="trigger_cam_duration">
+			<address>0x0010</address>
+			<caption>Длительность импульса триггера</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description>Длительность импульса сигнала триггера для камеры</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="print_trigger_mode_1_enc">
+			<address>0x0011</address>
+			<caption>Режим 1. Печать по энкодеру. Позиция</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="trigger_printer_duration">
+			<address>0x0012</address>
+			<caption>Длительность импульса триггера</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description>Длительность импульса сигнала триггера для принтера</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="eye_mark_error_limit">
+			<address>0x0013</address>
+			<caption>Допустимое количество ошибок фотометки</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="plc_queue_max_len_for_dmc">
+			<address>0x0014</address>
+			<caption>Максимальное разрешимое количество кодов DMC в памяти ПЛК</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>16</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="plc_queue_min_len_for_dmc">
+			<address>0x0015</address>
+			<caption>Минимально разрешимое количество кодов DMC в памяти ПЛК</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>15</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="rotations_after_err1">
+			<address>0x0016</address>
+			<caption>Кол-во оборотов ножа после потери фотометки.</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>оборот.</unit>
+			</data_presentation>
+		</element>
+		<element alias="plc_buffer_stab_window">
+			<address>0x0017</address>
+			<caption>Позиция выхода кода из буфера ПЛК</caption>
+			<plc_var></plc_var>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="chain_checking_by_sensors_position">
+			<address>0x0018</address>
+			<caption>Позиция при которой активируются датчики проверки на гусеницу</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="chain_checking_by_sensors_duration">
+			<address>0x0019</address>
+			<caption>Ширина окна фиксации гусеницы датчиками</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="chain_checking_position">
+			<address>0x001A</address>
+			<caption>Позиция при которой начинаются проверятся данные на гусеницу</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="chain_checking_duration">
+			<address>0x001B</address>
+			<caption>Ширина окна проверки данных на гусеницу</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="chain_blowing_position">
+			<address>0x001C</address>
+			<caption>Позиция при которой начинается выдув гусеницы</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="chain_blowing_duration">
+			<address>0x001D</address>
+			<caption>Ширина окна команды для позиции выдува гусеницы</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="chain_additional_blow_duration">
+			<address>0x001E</address>
+			<caption>Длительность выдува хвоста гусеницы</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="empty_checking_position">
+			<address>0x001F</address>
+			<caption>Позиция при которой начинается проверка данных на пустую упаковку</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="empty_checking_duration">
+			<address>0x0020</address>
+			<caption>Ширина окна проверки данных на пустую упаковку</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="empty_blowing_duration">
+			<address>0x0021</address>
+			<caption>Длительность выдува пустой упаковки</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="idle_duration">
+			<address>0x0022</address>
+			<caption>Окно покоя системы</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description>Предотвращает хаотичный выдув при остановленной линии</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="conveyor_speed_averaging_factor">
+			<address>0x0023</address>
+			<caption>Коэффициент усреднения скорости конвейера</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="blowing_mode">
+			<address>0x0024</address>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Вкл/откл системы выдува</caption>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Выкл</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Вкл</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="autocalc_product_algo_mode">
+			<address>0x0025</address>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Расчет сложного алгоритма определения продукта на входе</caption>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>НЕ АВТ.</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>АВТ.</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="algo_selector">
+			<address>0x0026</address>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Алгоритм определения продукта на входе в упаковщик</caption>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>ПРОСТОЙ</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>СЛОЖНЫЙ</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="eye_mark_control_mode">
+			<address>0x0027</address>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description>Режим контроля фотометки (Кнопка Retain)</description>
+			<type>uint8</type>
+			<caption>Контроль фотометки</caption>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Выкл</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Вкл</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="cnt_dmc_in_buffer_cam_cutter">
+			<address>0x0028</address>
+			<caption>Количество кодов в буфере ПЛК от камеры до ножа</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description> (после чего ПЛК начинает работу)</description>
+			<type>uint16</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>1</minimum>
+				<maximum>16</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="cam_sensor_delta">
+			<address>0x0029</address>
+			<caption>Разность камеры и датчика</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description>Разность камеры и датчика</description>
+			<type>uint16</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>10</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="rotation_speed_encoder_factor">
+			<address>0x002A</address>
+			<caption>Коэффициент скорости конвейера сорт. секции</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description>Коэффициент преобразования скорости вращения энкодера в аналоговый сигнал для ПЧ конвейера</description>
+			<type>real</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100</maximum>
+				<step>0,01</step>
+				<unit></unit>
+			</data_presentation>
+		</element>
+		<element alias="reset_counters_after_stop">
+			<address>0x002B</address>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description>Сбросить счетчики по нажатию на кнопку "Стоп"</description>
+			<type>uint8</type>
+			<caption>Сбрасывать счетчики по нажатии на кнопку "Стоп"</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Выключено</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Включено</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="product_detection_simple_algo">
+			<address>0x002C</address>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description>Резерв</description>
+			<type>uint8</type>
+			<caption>Нет функции 0x002C</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Выкл</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Вкл</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="product_offset_in_plc">
+			<address>0x002D</address>
+			<caption>Смещение продукта</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description>Смещение продукта в памяти ПЛК</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>30000</maximum>
+				<step>1</step>
+				<unit>энк.</unit>
+			</data_presentation>
+		</element>
+		<element alias="cam_trigger_active_mode">
+			<address>0x002E</address>
+			<caption>Режим фото съемки</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description>Выбор режима работы триггера камеры</description>
+			<type>uint32</type>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x01</value>
+					<text>По энкодеру</text>
+				</enum>
+				<enum id="2">
+					<value>0x02</value>
+					<text>По метке и упаковке</text>
+				</enum>
+				<enum id="3">
+					<value>0x03</value>
+					<text>По метке и энкодеру</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="cam_trigger_mode_2_label_enc">
+			<address>0x002F</address>
+			<caption>Режим 2. Фото по метке и упаковке. Позиция</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>30000</maximum>
+				<step>1</step>
+				<unit>энк.</unit>
+			</data_presentation>
+		</element>
+		<element alias="cam_trigger_mode_3_label_pack">
+			<address>0x0030</address>
+			<caption>Режим 3. Фото по метке и энкодеру. Позиция</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>30000</maximum>
+				<step>1</step>
+				<unit>энк.</unit>
+			</data_presentation>
+		</element>
+		<element alias="print_trigger_active_mode">
+			<address>0x0031</address>
+			<caption>Режим печати кода</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x01</value>
+					<text>По энкодеру</text>
+				</enum>
+				<enum id="2">
+					<value>0x02</value>
+					<text>По метке и упаковке</text>
+				</enum>
+				<enum id="3">
+					<value>0x03</value>
+					<text>По метке и энкодеру</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="print_trigger_mode_2_label_enc">
+			<address>0x0032</address>
+			<caption>Режим 2. Печать по метке и упаковке. Позиция</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>30000</maximum>
+				<step>1</step>
+				<unit>энк.</unit>
+			</data_presentation>
+		</element>
+		<element alias="print_trigger_mode_3_label_pack">
+			<address>0x0033</address>
+			<caption>Режим 3. Печать по метке и энкодеру. Позиция</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>30000</maximum>
+				<step>1</step>
+				<unit>энк.</unit>
+			</data_presentation>
+		</element>
+		<element alias="system_started">
+			<address>0x0259</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description>Состояние системы</description>
+			<type>uint8</type>
+			<caption>Система</caption>
+			<plc_var>Work  BufferPresentNonRetainBool[0]*</plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Остановлена</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Запущена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="box_1">
+			<address>0x025A</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Наличие коробки 1 в зоне упаковки</caption>
+			<plc_var>SensPuck1  BufferPresentNonRetainBool[1]*</plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="box_2">
+			<address>0x025B</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Наличие коробки 2 в зоне упаковки</caption>
+			<plc_var>SensPuck2  BufferPresentNonRetainBool[2]*</plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="line_button_1">
+			<address>0x025C</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Нажатие на кнопку добавления продукта в зону упаковки 1</caption>
+			<plc_var>ButtonPuck1  BufferPresentNonRetainBool[3]*</plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="line_button_2">
+			<address>0x025D</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Нажатие на кнопку добавления продукта в зону упаковки 2</caption>
+			<plc_var>ButtonPuck2  BufferPresentNonRetainBool[4]*</plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="moving_product_cell_1">
+			<address>0x025E</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description>Ячейка 1 движения упакованного продукта</description>
+			<type>uint8</type>
+			<caption></caption>
+			<default_view>state</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0xAA</value>
+					<text>OK</text>
+				</enum>
+				<enum id="2">
+					<value>0xFA</value>
+					<text>No product</text>
+				</enum>
+				<enum id="3">
+					<value>0xAF</value>
+					<text>No datamatrix</text>
+				</enum>
+				<enum id="4">
+					<value>0xFF</value>
+					<text>No product, no datamatrix</text>
+				</enum>
+				<enum id="5">
+					<value>0x0A</value>
+					<text>Sensor error 0A</text>
+				</enum>
+				<enum id="6">
+					<value>0x0F</value>
+					<text>Sensor error 0F</text>
+				</enum>
+				<enum id="7">
+					<value>0xA0</value>
+					<text>Sensor error A0</text>
+				</enum>
+				<enum id="8">
+					<value>0xF0</value>
+					<text>Sensor error F0</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="moving_product_cell_2">
+			<address>0x025F</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description>Ячейка 2 движения упакованного продукта</description>
+			<type>uint8</type>
+			<caption></caption>
+			<default_view>state</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0xAA</value>
+					<text>OK</text>
+				</enum>
+				<enum id="2">
+					<value>0xFA</value>
+					<text>No product</text>
+				</enum>
+				<enum id="3">
+					<value>0xAF</value>
+					<text>No datamatrix</text>
+				</enum>
+				<enum id="4">
+					<value>0xFF</value>
+					<text>No product, no datamatrix</text>
+				</enum>
+				<enum id="5">
+					<value>0x0A</value>
+					<text>Sensor error 0A</text>
+				</enum>
+				<enum id="6">
+					<value>0x0F</value>
+					<text>Sensor error 0F</text>
+				</enum>
+				<enum id="7">
+					<value>0xA0</value>
+					<text>Sensor error A0</text>
+				</enum>
+				<enum id="8">
+					<value>0xF0</value>
+					<text>Sensor error F0</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="moving_product_cell_3">
+			<address>0x0260</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description>Ячейка 3 движения упакованного продукта</description>
+			<type>uint8</type>
+			<caption></caption>
+			<default_view>state</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0xAA</value>
+					<text>OK</text>
+				</enum>
+				<enum id="2">
+					<value>0xFA</value>
+					<text>No product</text>
+				</enum>
+				<enum id="3">
+					<value>0xAF</value>
+					<text>No datamatrix</text>
+				</enum>
+				<enum id="4">
+					<value>0xFF</value>
+					<text>No product, no datamatrix</text>
+				</enum>
+				<enum id="5">
+					<value>0x0A</value>
+					<text>Sensor error 0A</text>
+				</enum>
+				<enum id="6">
+					<value>0x0F</value>
+					<text>Sensor error 0F</text>
+				</enum>
+				<enum id="7">
+					<value>0xA0</value>
+					<text>Sensor error A0</text>
+				</enum>
+				<enum id="8">
+					<value>0xF0</value>
+					<text>Sensor error F0</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="moving_product_cell_4">
+			<address>0x0261</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description>Ячейка 4 движения упакованного продукта</description>
+			<type>uint8</type>
+			<caption></caption>
+			<default_view>state</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0xAA</value>
+					<text>OK</text>
+				</enum>
+				<enum id="2">
+					<value>0xFA</value>
+					<text>No product</text>
+				</enum>
+				<enum id="3">
+					<value>0xAF</value>
+					<text>No datamatrix</text>
+				</enum>
+				<enum id="4">
+					<value>0xFF</value>
+					<text>No product, no datamatrix</text>
+				</enum>
+				<enum id="5">
+					<value>0x0A</value>
+					<text>Sensor error 0A</text>
+				</enum>
+				<enum id="6">
+					<value>0x0F</value>
+					<text>Sensor error 0F</text>
+				</enum>
+				<enum id="7">
+					<value>0xA0</value>
+					<text>Sensor error A0</text>
+				</enum>
+				<enum id="8">
+					<value>0xF0</value>
+					<text>Sensor error F0</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="moving_product_cell_5">
+			<address>0x0262</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description>Ячейка 5 движения упакованного продукта</description>
+			<type>uint8</type>
+			<caption></caption>
+			<default_view>state</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0xAA</value>
+					<text>OK</text>
+				</enum>
+				<enum id="2">
+					<value>0xFA</value>
+					<text>No product</text>
+				</enum>
+				<enum id="3">
+					<value>0xAF</value>
+					<text>No datamatrix</text>
+				</enum>
+				<enum id="4">
+					<value>0xFF</value>
+					<text>No product, no datamatrix</text>
+				</enum>
+				<enum id="5">
+					<value>0x0A</value>
+					<text>Sensor error 0A</text>
+				</enum>
+				<enum id="6">
+					<value>0x0F</value>
+					<text>Sensor error 0F</text>
+				</enum>
+				<enum id="7">
+					<value>0xA0</value>
+					<text>Sensor error A0</text>
+				</enum>
+				<enum id="8">
+					<value>0xF0</value>
+					<text>Sensor error F0</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="moving_product_cell_6">
+			<address>0x0263</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description>Ячейка 6 движения упакованного продукта</description>
+			<type>uint8</type>
+			<caption></caption>
+			<default_view>state</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0xAA</value>
+					<text>OK</text>
+				</enum>
+				<enum id="2">
+					<value>0xFA</value>
+					<text>No product</text>
+				</enum>
+				<enum id="3">
+					<value>0xAF</value>
+					<text>No datamatrix</text>
+				</enum>
+				<enum id="4">
+					<value>0xFF</value>
+					<text>No product, no datamatrix</text>
+				</enum>
+				<enum id="5">
+					<value>0x0A</value>
+					<text>Sensor error 0A</text>
+				</enum>
+				<enum id="6">
+					<value>0x0F</value>
+					<text>Sensor error 0F</text>
+				</enum>
+				<enum id="7">
+					<value>0xA0</value>
+					<text>Sensor error A0</text>
+				</enum>
+				<enum id="8">
+					<value>0xF0</value>
+					<text>Sensor error F0</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="moving_product_cell_7">
+			<address>0x0264</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description>Ячейка 7 движения упакованного продукта</description>
+			<type>uint8</type>
+			<caption></caption>
+			<default_view>state</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0xAA</value>
+					<text>OK</text>
+				</enum>
+				<enum id="2">
+					<value>0xFA</value>
+					<text>No product</text>
+				</enum>
+				<enum id="3">
+					<value>0xAF</value>
+					<text>No datamatrix</text>
+				</enum>
+				<enum id="4">
+					<value>0xFF</value>
+					<text>No product, no datamatrix</text>
+				</enum>
+				<enum id="5">
+					<value>0x0A</value>
+					<text>Sensor error 0A</text>
+				</enum>
+				<enum id="6">
+					<value>0x0F</value>
+					<text>Sensor error 0F</text>
+				</enum>
+				<enum id="7">
+					<value>0xA0</value>
+					<text>Sensor error A0</text>
+				</enum>
+				<enum id="8">
+					<value>0xF0</value>
+					<text>Sensor error F0</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="moving_product_cell_8">
+			<address>0x0265</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description>Ячейка 8 движения упакованного продукта</description>
+			<type>uint8</type>
+			<caption></caption>
+			<default_view>state</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0xAA</value>
+					<text>OK</text>
+				</enum>
+				<enum id="2">
+					<value>0xFA</value>
+					<text>No product</text>
+				</enum>
+				<enum id="3">
+					<value>0xAF</value>
+					<text>No datamatrix</text>
+				</enum>
+				<enum id="4">
+					<value>0xFF</value>
+					<text>No product, no datamatrix</text>
+				</enum>
+				<enum id="5">
+					<value>0x0A</value>
+					<text>Sensor error 0A</text>
+				</enum>
+				<enum id="6">
+					<value>0x0F</value>
+					<text>Sensor error 0F</text>
+				</enum>
+				<enum id="7">
+					<value>0xA0</value>
+					<text>Sensor error A0</text>
+				</enum>
+				<enum id="8">
+					<value>0xF0</value>
+					<text>Sensor error F0</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="moving_product_cell_defect">
+			<address>0x0266</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description>Ячейка выдува брака</description>
+			<type>uint8</type>
+			<caption></caption>
+			<default_view>state</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0xAA</value>
+					<text>OK</text>
+				</enum>
+				<enum id="2">
+					<value>0xFA</value>
+					<text>No product</text>
+				</enum>
+				<enum id="3">
+					<value>0xAF</value>
+					<text>No datamatrix</text>
+				</enum>
+				<enum id="4">
+					<value>0xFF</value>
+					<text>No product, no datamatrix</text>
+				</enum>
+				<enum id="5">
+					<value>0x0A</value>
+					<text>Sensor error 0A</text>
+				</enum>
+				<enum id="6">
+					<value>0x0F</value>
+					<text>Sensor error 0F</text>
+				</enum>
+				<enum id="7">
+					<value>0xA0</value>
+					<text>Sensor error A0</text>
+				</enum>
+				<enum id="8">
+					<value>0xF0</value>
+					<text>Sensor error F0</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_1">
+			<address>0x0267</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error1.Неисправен датчик ножа.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_2">
+			<address>0x0268</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error2.Камера не передает DMC в ПЛК.Сокет не готов.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_3">
+			<address>0x0269</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error3.Нет стаканчика на входном конвейере</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_4">
+			<address>0x026A</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error4.Указатель буфера меньше или равен 0.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_5">
+			<address>0x026B</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error5.Резерв.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_6">
+			<address>0x026C</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error6.Резерв.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_7">
+			<address>0x026D</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error7.Резерв.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_8">
+			<address>0x026E</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error8.ЗАДАНИЕ НЕ УСТАНОВЛЕНО.GTIN DMC не соответствует заданию. Сменить задание или DMC..</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_9">
+			<address>0x026F</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error9.Система находится в режиме наладки.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_10">
+			<address>0x0270</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error10.Дубликаты DMC.ПЛК рано выгружает код из камеры. Сделать "Вход кода в буфер ПЛК еще позже, чем позиция "Фото съемки"
+				Или закончились коды в принтере. Или на упаковке напечатаны одинаковые коды.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_11">
+			<address>0x0271</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error11.Количество кодов в BufferBeforeWindowBlow меньше целевого.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_12">
+			<address>0x0272</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error12.Количество кодов в BufferBeforeWindowBlow больше целевого.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_13">
+			<address>0x0273</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error13.Потеряна фотометка на бумажной упаковки.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_14">
+			<address>0x0274</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error14.Отсутствует связь с камерой 1.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_15">
+			<address>0x0275</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error15.Отсутствует связь с камерой 2.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_16">
+			<address>0x0276</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error16.Нет связи ПЛК с ПК.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_17">
+			<address>0x0277</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error17.Система выдува отключена.В режиме "Работа" Коды DMC продолжают записываться в базу данных, но не валидный продукт не выдувается.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_18">
+			<address>0x0278</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error18.Система "Честный знак" не запущена.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_19">
+			<address>0x0279</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error19.Резерв.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_20">
+			<address>0x027A</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error20.Резерв.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_1">
+			<address>0x027B</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error1_PC. Тайм оут отправки сообщения об успешном завершение операции перезаписи данных.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_2">
+			<address>0x027C</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error2_PC.ПК прислал не верный адрес получателя. Во входном пакете от ПК.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_3">
+			<address>0x027D</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error3_PC.ПК прислал не верный адрес отправителя.Во входном пакете от ПК.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_4">
+			<address>0x027E</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error4_PC.Не верный код запроса на чтение/запись.Во входном пакете от ПК.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_5">
+			<address>0x027F</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error5_PC.Прямой адрес ПК на косвенный массив меньше или равно нулю.Во входном пакете от ПК</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_6">
+			<address>0x0280</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error6_PC.Запрет на перезапись данных</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_7">
+			<address>0x0281</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error7_PC.Тайм оут отправки пакета с данными при запросе чтения данных от ПК.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_8">
+			<address>0x0282</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error8_PC.Не определен тип данных во входном пакете от ПК.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_9">
+			<address>0x0283</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error9_PC.Ошибка сокета при приеме данных от ПК.Принимаем хеадера пакета.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_10">
+			<address>0x0284</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error10_PC.Ошибка при приеме хвоста данных пакета от ПК.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_11">
+			<address>0x0285</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error11_PC.Тайм оут отправки пакета с сообщением о неудачной операции.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_12">
+			<address>0x0286</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error12_PC.Тайм оут отправки пакета с кодом DMC.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_13">
+			<address>0x0287</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error13_PC.Тайм оут на передачу данных от ПЛК к ПК.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_14">
+			<address>0x0288</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error14_PC.ПК прислал запрос на перезапись не верный тип данных.</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_15">
+			<address>0x0289</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error15_PC.Резерв</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_16">
+			<address>0x028A</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error16_PC.Резерв</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_17">
+			<address>0x028B</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error17_PC.Резерв</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_18">
+			<address>0x028C</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error18_PC.Резерв</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_19">
+			<address>0x028D</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error19_PC.Резерв</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_pc_20">
+			<address>0x028E</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Error20_PC.Резерв</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_encoder_enable">
+			<address>0x028F</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация текущего положения энкодера на выбраном экране</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_product_moving">
+			<address>0x0290</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активировать передачу данных для анимации движения продукта перед ножом</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_3">
+			<address>0x0291</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_4">
+			<address>0x0292</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_5">
+			<address>0x0293</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_6">
+			<address>0x0294</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_7">
+			<address>0x0295</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_8">
+			<address>0x0296</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_9">
+			<address>0x0297</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_10">
+			<address>0x0298</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_11">
+			<address>0x0299</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_12">
+			<address>0x029A</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_13">
+			<address>0x029B</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_14">
+			<address>0x029C</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_15">
+			<address>0x029D</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_16">
+			<address>0x029E</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_17">
+			<address>0x029F</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_18">
+			<address>0x02A0</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_19">
+			<address>0x02A1</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="screen_activation_20">
+			<address>0x02A2</address>
+			<rw>false</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Активация еще пока,что неизвестно чего. Нужно распределить параметры и экраны</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="reset_errors_pc">
+			<address>0x02A3</address>
+			<rw>true</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Сбросить ошибки между ПК и ПЛК</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="reset_errors_plc">
+			<address>0x02A4</address>
+			<rw>true</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>Сбросить ошибки ПЛК</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="error_alarm">
+			<address>0x02A5</address>
+			<rw>true</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>ОБЩИЙ СИГНАЛ АВАРИИ НА ОСНОВНОМ ЭКРАНЕ </caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="button_datamatrix_under_cut">
+			<address>0x02A6</address>
+			<rw>true</rw>
+			<mode>W</mode>
+			<description>КНОПКА ЗАПРОС КОДА ДМС ПОД НОЖОМ ПРИ НАСТРОЙКЕ ОБОРУДОВАНИЯ </description>
+			<type>uint8</type>
+			<caption>Получить КМ из-под ножа</caption>
+			<plc_var></plc_var>
+			<default_view>button</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="plc_serialization_enable">
+			<address>0x02A7</address>
+			<rw>true</rw>
+			<mode>RW</mode>
+			<description>Разрешение сигнала работы от ПК</description>
+			<type>uint8</type>
+			<caption>Разрешение на работу линии</caption>
+			<plc_var></plc_var>
+			<default_view>button</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="reset_counter_1d">
+			<address>0x02A8</address>
+			<rw>true</rw>
+			<mode>W</mode>
+			<description>Сброс счетчика 1D</description>
+			<type>uint8</type>
+			<caption>Сброс счетчика 1D</caption>
+			<plc_var></plc_var>
+			<default_view>button</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="reset_counter_no_read">
+			<address>0x02A9</address>
+			<rw>true</rw>
+			<mode>W</mode>
+			<description>Сброс счетчика NO READ</description>
+			<type>uint8</type>
+			<caption>Сброс счетчика NO READ</caption>
+			<plc_var></plc_var>
+			<default_view>button</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="reset_counter_detected_product">
+			<address>0x02AA</address>
+			<rw>true</rw>
+			<mode>W</mode>
+			<description>Сброс счетчиков зафиксированного продукта</description>
+			<type>uint8</type>
+			<caption>Сброс счетчиков обнаруженного продукта</caption>
+			<plc_var></plc_var>
+			<default_view>button</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="reset_counter_not_detected_product">
+			<address>0x02AB</address>
+			<rw>true</rw>
+			<mode>W</mode>
+			<description>Сброс счетчиков не зафиксированного продукта</description>
+			<type>uint8</type>
+			<caption>Сброс счетчиков не обнаруженного продукта</caption>
+			<plc_var></plc_var>
+			<default_view>button</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="reset_counter_finished_product">
+			<address>0x02AC</address>
+			<rw>true</rw>
+			<mode>W</mode>
+			<description>Сброс счетчика готового продукта</description>
+			<type>uint8</type>
+			<caption>Сброс счетчика готового продукта</caption>
+			<plc_var></plc_var>
+			<default_view>button</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="sensor_cutter">
+			<address>0x02AD</address>
+			<rw>true</rw>
+			<mode>E</mode>
+			<description>Датчик ножа</description>
+			<type>uint8</type>
+			<caption></caption>
+			<plc_var></plc_var>
+			<default_view>state</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="sensor_product">
+			<address>0x02AE</address>
+			<rw>true</rw>
+			<mode>E</mode>
+			<description>Датчик продукта</description>
+			<type>uint8</type>
+			<caption></caption>
+			<plc_var></plc_var>
+			<default_view>state</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="sensor_chain">
+			<address>0x02AF</address>
+			<rw>true</rw>
+			<mode>E</mode>
+			<description>Датчик гусеницы</description>
+			<type>uint8</type>
+			<caption></caption>
+			<plc_var></plc_var>
+			<default_view>state</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="reset_positions_for_product">
+			<address>0x02B0</address>
+			<rw>true</rw>
+			<mode>W</mode>
+			<description>Сброс всех позиций продукта</description>
+			<type>uint8</type>
+			<caption>Сброс всех позиций продукта</caption>
+			<plc_var></plc_var>
+			<default_view>button</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="reset_positions_for_chain">
+			<address>0x02B1</address>
+			<rw>true</rw>
+			<mode>W</mode>
+			<description>Сброс всех позиций продукта</description>
+			<type>uint8</type>
+			<caption>Сброс всех позиций гусеницы</caption>
+			<plc_var></plc_var>
+			<default_view>button</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="plc_cam_online">
+			<address>0x02B2</address>
+			<rw>true</rw>
+			<mode>E</mode>
+			<description>Соединение ПЛК к камере установлено</description>
+			<type>uint8</type>
+			<caption></caption>
+			<plc_var></plc_var>
+			<default_view>state</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлено</text>
+				</enum>
+			</data_presentation>
+		</element>
+		<element alias="reset_counter_dmc_copies">
+			<address>0x02A2</address>
+			<rw>true</rw>
+			<mode>W</mode>
+			<description>Сброс счетчика дублей КМ</description>
+			<type>uint8</type>
+			<caption>Сброс счетчика дублей КМ</caption>
+			<default_view>button</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+
+
+		<element alias="encoder_pulses_per_turnover">
+			<address>0x0386</address>
+			<caption>Количество импульсов энкодера за один руб</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="counter_dmc_errors_no_read">
+			<address>0x0387</address>
+			<caption>Не прочитанных КМ</caption>
+			<rw>false</rw>
+			<mode>RE</mode>
+			<description>Количество не прочитанных кодов DataMatrix</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="counter_dmc_errors_1d">
+			<address>0x0388</address>
+			<caption>Не верных позиций символа GS</caption>
+			<rw>false</rw>
+			<mode>RE</mode>
+			<description>Количество не верных ключей DMC 1D (позиций символа GS)</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="counter_detected_products_before_packer">
+			<address>0x0389</address>
+			<caption>Увиденного продукта перед упаковщиком</caption>
+			<rw>false</rw>
+			<mode>RE</mode>
+			<description>Количество увиденного продукта перед упаковщиком</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="counter_not_detected_products_before_packer">
+			<address>0x038A</address>
+			<caption>Не увиденного продукта перед упаковщиком</caption>
+			<rw>false</rw>
+			<mode>RE</mode>
+			<description>Количество не увиденного продукта перед упаковщиком</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="counter_finished_products">
+			<address>0x038B</address>
+			<caption>Готового продукта</caption>
+			<rw>false</rw>
+			<mode>RE</mode>
+			<description>Количество готового продукта </description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="duration_loading_dmc_from_cam_to_plc">
+			<address>0x038C</address>
+			<caption>Время отдачи КМ из камеры в ПЛК</caption>
+			<rw>false</rw>
+			<mode>RE</mode>
+			<description>Время отдачи КМ из камеры в ПЛК</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>мс</unit>
+			</data_presentation>
+		</element>
+		<element alias="position_product_origin">
+			<address>0x038D</address>
+			<caption>Позиция начала продукта</caption>
+			<rw>false</rw>
+			<mode>RE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="position_product_end">
+			<address>0x038E</address>
+			<caption>Позиция конца продукта</caption>
+			<rw>false</rw>
+			<mode>RE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="counter_dmc_copies">
+			<address>0x038F</address>
+			<caption>Дубликатов КМ</caption>
+			<rw>false</rw>
+			<mode>RE</mode>
+			<description>Количество повторяющихся КМ</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>4294967295</maximum>
+				<step>1</step>
+				<unit>шт.</unit>
+			</data_presentation>
+		</element>
+		<element alias="position_gap_between_products">
+			<address>0x0390</address>
+			<caption>Позиция начала промежутка между продуктом</caption>
+			<rw>false</rw>
+			<mode>RE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="position_of_cam_shots">
+			<address>0x0391</address>
+			<caption>Позиция фото</caption>
+			<rw>false</rw>
+			<mode>RE</mode>
+			<description>Позиция фото</description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="datamatrix">
+			<address>0x0BB8</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description>Код маркировки, считанный с камеры</description>
+			<plc_var></plc_var>
+			<type>string</type>
+			<caption>Datamatrix:</caption>
+			<default_view>string</default_view>
+			<data_presentation type="bytes">
+				<encoding>utf-8</encoding>
+				<max_length>39</max_length>
+			</data_presentation>
+		</element>
+		<element alias="datamatrix_under_cut">
+			<address>0x0BB9</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description>Код маркировки под ножом, для настройки оборудования</description>
+			<plc_var></plc_var>
+			<type>string</type>
+			<caption>КМ под ножом</caption>
+			<default_view>string</default_view>
+			<data_presentation type="bytes">
+				<encoding>utf-8</encoding>
+				<max_length>39</max_length>
+			</data_presentation>
+		</element>
+		<element alias="datamatrix_from_cam">
+			<address>0x0BBA</address>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description>Код маркировки из камеры, для настройки оборудования</description>
+			<plc_var></plc_var>
+			<type>string</type>
+			<caption>КМ под ножом</caption>
+			<default_view>string</default_view>
+			<data_presentation type="bytes">
+				<encoding>utf-8</encoding>
+				<max_length>39</max_length>
+			</data_presentation>
+		</element>
+		<element alias="encoder_position">
+			<address>0x0385</address>
+			<type>uint32</type>
+			<caption>Текущее положение энкодера</caption>
+			<plc_var> N2_Ch1_Encoder_Present_Position BufferPresentNonRetainUint32[0]**</plc_var>
+			<rw>false</rw>
+			<mode>E</mode>
+			<description></description>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>энк.</unit>
+			</data_presentation>
+		</element>
+		<!-- Параметры для версии ПЛК для аппликаторов -->
+		<element alias="applicator_right">
+			<address>0x0036</address>
+			<caption>Аппликатор правый</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="camera_left">
+			<address>0x0035</address>
+			<caption>Камера левая</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>100000</maximum>
+				<step>1</step>
+				<unit>имп.</unit>
+			</data_presentation>
+		</element>
+		<element alias="applicator_left">
+			<address>0x0037</address>
+			<caption>Аппликатор левый</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>30000</maximum>
+				<step>1</step>
+				<unit>энк.</unit>
+			</data_presentation>
+		</element>
+		<element alias="camera_right">
+			<address>0x0034</address>
+			<caption>Камера правая</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>30000</maximum>
+				<step>1</step>
+				<unit>энк.</unit>
+			</data_presentation>
+		</element>
+		<!-- Параметры для версии ПЛК для брикетов -->
+		<element alias="camera_delay_1">
+			<address>0x0038</address>
+			<caption>Задержка фото камера 1</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>30000</maximum>
+				<step>1</step>
+				<unit>ms</unit>
+			</data_presentation>
+		</element>
+		<element alias="camera_delay_2">
+			<address>0x0039</address>
+			<caption>Задержка фото камера 2</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>30000</maximum>
+				<step>1</step>
+				<unit>ms</unit>
+			</data_presentation>
+		</element>
+		<element alias="blowing_duration">
+			<address>0x003A</address>
+			<caption>Длительность выдува</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>30000</maximum>
+				<step>1</step>
+				<unit>ms</unit>
+			</data_presentation>
+		</element>
+		<element alias="unknow_parameter">
+			<address>0x003B</address>
+			<caption>Резерв</caption>
+			<rw>true</rw>
+			<mode>RWE</mode>
+			<description></description>
+			<type>uint32</type>
+			<default_view>range</default_view>
+			<data_presentation type="range">
+				<minimum>0</minimum>
+				<maximum>30000</maximum>
+				<step>1</step>
+				<unit>ms</unit>
+			</data_presentation>
+		</element>
+		<element alias="no_db_connection">
+			<address>0x02B4</address>
+			<rw>true</rw>
+			<mode>W</mode>
+			<description></description>
+			<type>uint8</type>
+			<caption>НЕТ СВЯЗИ С БАЗОЙ ДАННЫХ</caption>
+			<plc_var></plc_var>
+			<default_view>enum</default_view>
+			<data_presentation type="enum">
+				<enum id="1">
+					<value>0x0</value>
+					<text>Отсутствует</text>
+				</enum>
+				<enum id="2">
+					<value>0x1</value>
+					<text>Установлена</text>
+				</enum>
+			</data_presentation>
+		</element>
+	</elements>
+</inautomatic_device>
+
