@@ -23,6 +23,7 @@ import binascii
 import threading
 import selectors
 import types
+import pathlib
 
 from device_settings_from_xml import XmlDataLoader
 
@@ -36,9 +37,9 @@ mark_line = 0x10
 
 class CommonWindow(QtWidgets.QWidget):
 	"""Класс основного окна программы"""
-	def __init__(self, parent = None):
-		QtWidgets.QMainWindow.__init__(self, parent)
-
+	def __init__(self, parent=None):
+		# QtWidgets.QMainWindow.__init__(self, parent)
+		super().__init__(parent)
 		self.data_array = [0]*13
 		self.data_bytearray = bytearray(self.data_array)
 
@@ -101,7 +102,7 @@ class CommonWindow(QtWidgets.QWidget):
 		self.tab_wdg.le_inner_addr_tab2.textChanged.connect(self.on_update_inner_address)
 
 		# self.tab_wdg.tab1.setDisabled(True)
-		self.tab_wdg.tabs.setCurrentIndex(1)
+		self.tab_wdg.tabs.setCurrentIndex(0)
 
 		self.timer = QTimer()
 		self.timer.timeout.connect(self.on_timer_interrupt)
@@ -109,8 +110,8 @@ class CommonWindow(QtWidgets.QWidget):
 		self.timer_client = QTimer()
 		self.timer_client.timeout.connect(self.on_timer_client_interrupt)
 
-		# xmlData = XmlDataLoader()
-		# xmlData.xml_load("E:\\PythonScripts\\markConnection\\data\\plc_device.xml")
+		xmlData = XmlDataLoader()
+		xmlData.xml_load("{}\\data\\plc_device.xml".format(pathlib.Path(__file__).parent.resolve()))
 
 	@QtCore.pyqtSlot()
 	def on_timer_interrupt(self):
