@@ -9,7 +9,7 @@ import logging
 import struct
 from enum import IntEnum, Enum, auto
 
-from sys_libs.common_functions import convertType
+# from sys_libs.common_functions import convertType
 
 log = logging.getLogger('main')
 
