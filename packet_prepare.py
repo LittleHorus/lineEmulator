@@ -2,6 +2,8 @@ from time import strftime
 import numpy as np
 import struct
 
+__version__ = '0.0.1'
+__author__ = 'lha_hl'
 
 class Packet(object):
     def _init_(self, src_id: int = 0x11, dst_id: int = 0x12, data_type: int = 0x01):

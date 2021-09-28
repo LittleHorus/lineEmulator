@@ -1,13 +1,17 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5 import QtCore
 import selectors
 import types
 import socket
 import numpy as np
 
 sel = selectors.DefaultSelector()
+
+__version__ = '0.0.1'
+__author__ = 'lha_hl'
+
 
 class ServerThread(QtCore.QThread):
 	status_signal = QtCore.pyqtSignal(str)
@@ -60,7 +64,7 @@ class ServerThread(QtCore.QThread):
 	def accept_wrapper(self, sock):
 		conn, addr = sock.accept()  # Should be ready to read
 		print('server accept connection from', addr)
-		self.status_signal.emit("accepted connection from {}".format(addr))
+		self.status_signal.emit("server accept connection from {}".format(addr))
 		conn.setblocking(False)
 		data = types.SimpleNamespace(addr=addr, inb=b'', outb=b'')
 		events = selectors.EVENT_READ | selectors.EVENT_WRITE
@@ -88,6 +92,7 @@ class ServerThread(QtCore.QThread):
 				print('server event_write: {}'.format(data_ts))
 				if (data_ts[0] == 0) and (data_ts[1] == 0):
 					self.status_signal.emit("skip response")
+					# todo change for mirror response
 					data.outb = b''
 				else:
 					self.status_signal.emit("sending: {}".format(repr(data.outb), data.addr))
@@ -105,14 +110,10 @@ class ServerThread(QtCore.QThread):
 		# | our address | server address | cmd | reg hi | reg low | data |
 		# print('data_processing: '+''.join('0x{:02X} '.format(a) for a in input_data))
 		if input_data[0] == 0x3d and input_data[1] == 0xec:
-			self.status_signal.emit("byte data type, lenght: {}".format(len(input_data)))
+			self.status_signal.emit("byte data type, length: {}".format(len(input_data)))
 			self.status_packet.emit("HANDSHAKE client: " + ''.join('0x{:02X} '.format(a) for a in input_data))
 			print('server recv handshake: {}'.format(input_data))
-			data_response = [0] * 4
-			data_response[0] = 0xDA
-			data_response[1] = 0xBA
-			data_response[2] = 0x01  # protocol version
-			data_response[3] = 0x01  # net address
+			data_response = [0xDA, 0xBA, 0x01, 0x01]
 			print('server send handshake: {}'.format(data_response))
 
 		elif ((input_data[1]) & 0x0f) == 0x01 and (
@@ -164,7 +165,7 @@ class ServerThread(QtCore.QThread):
 					"data type unknown: {}, cmd byte: {}".format((input_data[2] & 0x0f), input_data[2]))
 				print('server data type unknown: {:2X}'.format(input_data))
 		else:
-			# print("packet pass{}".format(input_data))
+			print("packet pass{}".format(input_data))
 			self.status_signal.emit("packet pass: {}".format(input_data))
 			data_response = [0] * 10
 		return data_response

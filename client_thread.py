@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5 import QtCore
 import selectors
-import types
 import socket
 
 sel_client = selectors.DefaultSelector()
@@ -33,11 +32,12 @@ class ClientThread(QtCore.QThread):
 		self.running = True
 		self.asyn_recv_flag = True
 		while self.running:
-			if self.asyn_recv_flag == True:
+			if self.asyn_recv_flag is True:
 				try:
 					self.asyn_recv_raw = self.s.recv(100)
 				except:
 					pass
+				print('client running exception rise')
 				if self.asyn_recv_raw:
 					print("client received: {}".format(self.asyn_recv_raw))
 					data_to_send = self.packet_proccessing(self.asyn_recv_raw)
@@ -76,7 +76,7 @@ class ClientThread(QtCore.QThread):
 	def connect_client(self, ip, port):
 		try:
 			self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-			self.s.settimeout(0.5)
+			self.s.settimeout(1)
 			#self.s.setblocking(False)
 			self.s.connect((ip, port))
 
@@ -120,32 +120,32 @@ class ClientThread(QtCore.QThread):
 				data_response[2] = (input_data[2]&0x0f)|0x60
 				for a in range(len(input_data)-3):
 					data_response[a+3] = input_data[a+3]
-			elif (input_data[2]&0x0f) == 0x02:
+			elif (input_data[2] & 0x0f) == 0x02:
 				data_response = [0]*7
 				data_response[0] = self.out_inner_address
 				data_response[1] = input_data[0]
 				data_response[2] = (input_data[2]&0x0f)|0x60
 				for a in range(len(input_data)-3):
 					data_response[a+3] = input_data[a+3]
-			elif (input_data[2]&0x0f) == 0x03:
+			elif (input_data[2] & 0x0f) == 0x03:
 				data_response = [0]*9
 				data_response[0] = self.out_inner_address
 				data_response[1] = input_data[0]
-				data_response[2] = (input_data[2]&0x0f)|0x60
+				data_response[2] = (input_data[2] & 0x0f) | 0x60
 				for a in range(len(input_data)-3):
 					data_response[a+3] = input_data[a+3]
-			elif (input_data[2]&0x0f) == 0x04:
+			elif (input_data[2] & 0x0f) == 0x04:
 				data_response = [0]*9
 				data_response[0] = self.out_inner_address
 				data_response[1] = input_data[0]
-				data_response[2] = (input_data[2]&0x0f)|0x60
+				data_response[2] = (input_data[2] & 0x0f) | 0x60
 				for a in range(len(input_data)-3):
 					data_response[a+3] = input_data[a+3]
-			elif (input_data[2]&0x0f) == 0x05:
+			elif (input_data[2] & 0x0f) == 0x05:
 				data_response = [0]*len(input_data)
 				data_response[0] = self.out_inner_address
 				data_response[1] = input_data[0]
-				data_response[2] = (input_data[2]&0x0f)|0x60
+				data_response[2] = (input_data[2] & 0x0f) | 0x60
 				for a in range(len(input_data)-3):
 					data_response[a+3] = input_data[a+3]
 			else:
@@ -157,7 +157,7 @@ class ClientThread(QtCore.QThread):
 			data_response = [0]*10
 		return data_response
 
-	def client_reseive_message(self):
+	def client_receive_message(self):
 		receive_bytearray = ''
 		receive_bytearray = self.s.recv(1024)
 		return receive_bytearray
