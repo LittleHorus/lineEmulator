@@ -61,18 +61,23 @@ class CommonWindow(QtWidgets.QWidget):
 		self.log_widget.setReadOnly(True)				
 
 		self.client_log_widget = QtWidgets.QPlainTextEdit()
-		self.client_log_widget.insertPlainText("Socket log: ")
+		self.client_log_widget.insertPlainText("Client log: ")
 		self.client_log_widget.setReadOnly(True)
+		self.client_log_widget.setMaximumSize(400, 600)
 
 		self.server_log_widget = QtWidgets.QPlainTextEdit()
 		self.server_log_widget.insertPlainText('Server log:')
 		self.server_log_widget.setReadOnly(True)
+		self.server_log_widget.setMaximumSize(400, 600)
 
 		self.tab_wdg = TabWidgetCustom(self, horizontal_size, vertical_size)
+		self.tab_wdg.setMaximumSize(600, 600)
 
 		self.hbox_level1 = QtWidgets.QHBoxLayout()
 		self.hbox_level1.addWidget(self.tab_wdg, 0)
 		self.hbox_level1.addWidget(self.client_log_widget, 1)
+		self.hbox_level1.addWidget(self.server_log_widget, 2)
+		self.hbox_level1.addWidget(QtWidgets.QLabel(''))
 
 		self.vbox = QtWidgets.QVBoxLayout()		
 		self.vbox.insertLayout(0, self.hbox_level1)
@@ -113,6 +118,11 @@ class CommonWindow(QtWidgets.QWidget):
 		xml_data = XmlDataLoader()
 		xml_data.xml_load("{}\\data\\plc_device.xml".format(pathlib.Path(__file__).parent.resolve()))
 
+		try:
+			self.serv_nonblocking.client_connect.connect(self.on_change_server_client_connection)
+		except:
+			traceback.print_exc()
+
 	@QtCore.pyqtSlot()
 	def on_timer_interrupt(self):
 		if int(self.tab_wdg.le_timeout_tab2.text()) == 0:
@@ -126,7 +136,8 @@ class CommonWindow(QtWidgets.QWidget):
 		try:
 			self.data_in_asyo = self.client.client_reseive_message()
 			if self.data_in_asyo:
-				self.log_widget.appendPlainText("[{}] incoming data: {}".format(strftime("%H:%M:%S"), self.data_in_asyo))
+				self.log_widget.appendPlainText("[{}] incoming data: {}".format(
+					strftime("%H:%M:%S"), self.data_in_asyo))
 		except:
 			traceback.print_exc()
 	
@@ -163,7 +174,8 @@ class CommonWindow(QtWidgets.QWidget):
 			self.tab_wdg.le_addr_tab2.setReadOnly(False)
 			self.tab_wdg.le_port_tab2.setReadOnly(False)
 			self.tab_wdg.le_inner_addr_tab2.setReadOnly(False)		
-			self.log_widget.appendPlainText("[{}] connection failed: {}".format(strftime("%H:%M:%S"),traceback.format_exc()))		
+			self.log_widget.appendPlainText("[{}] connection failed: {}".format(
+				strftime("%H:%M:%S"), traceback.format_exc()))
 	
 	def on_send_client_mode(self):
 		try:
@@ -180,7 +192,8 @@ class CommonWindow(QtWidgets.QWidget):
 				if self.tab_wdg.datamode_combobox.currentText() == 'Fixed':
 					byte_arr = int(self.tab_wdg.le_data_tab2.text(), 16)
 					self.fixed_packet[5] = byte_arr  # int(self.tab_wdg.le_data_tab2.text())
-					self.log_widget.appendPlainText("[{}] data(byte): {}".format(strftime("%H:%M:%S"), self.fixed_packet[5]))
+					self.log_widget.appendPlainText("[{}] data(byte): {}".format(
+						strftime("%H:%M:%S"), self.fixed_packet[5]))
 				elif self.tab_wdg.datamode_combobox.currentText() == 'Random':
 					self.fixed_packet[5] = np.random.randint(0, 255)
 				elif self.tab_wdg.datamode_combobox.currentText() == 'List':
@@ -197,7 +210,8 @@ class CommonWindow(QtWidgets.QWidget):
 					byte_arr = int(self.tab_wdg.le_data_tab2.text(), 16)
 					self.fixed_packet[5] = (byte_arr >> 8) & 0xff
 					self.fixed_packet[6] = byte_arr & 0xff
-					self.log_widget.appendPlainText("[{}] hex data(short): {}".format(strftime("%H:%M:%S"), byte_arr))
+					self.log_widget.appendPlainText("[{}] hex data(short): {}".format(
+						strftime("%H:%M:%S"), byte_arr))
 				elif self.tab_wdg.datamode_combobox.currentText() == 'Random':
 					data_rand = np.random.randint(0, 16383)
 					self.fixed_packet[5] = (data_rand >> 8) & 0xff
@@ -269,22 +283,28 @@ class CommonWindow(QtWidgets.QWidget):
 					self.fixed_packet[5] = np.random.random_integers(0, 255)
 			if int(self.tab_wdg.le_timeout_tab2.text()) != 0:
 				self.timer.start(int(self.tab_wdg.le_timeout_tab2.text())*1000)
-				self.log_widget.appendPlainText("[{}] multi shot, repeat time: {} sec".format(strftime("%H:%M:%S"), int(self.tab_wdg.le_timeout_tab2.text())))
+				self.log_widget.appendPlainText("[{}] multi shot, repeat time: {} sec".format(
+					strftime("%H:%M:%S"), int(self.tab_wdg.le_timeout_tab2.text())))
 			else:
 				self.timer.stop()
-				self.log_widget.appendPlainText("[{}] single send ".format(strftime("%H:%M:%S")) +''.join('0x{:02X} '.format(a) for a in self.fixed_packet))
-			self.client_log_widget.appendPlainText("[{}] SEND: ".format(strftime("%H:%M:%S")) + ''.join('0x{:02X} '.format(a) for a in self.fixed_packet))
+				self.log_widget.appendPlainText("[{}] single send ".format(
+					strftime("%H:%M:%S")) +''.join('0x{:02X} '.format(a) for a in self.fixed_packet))
+			self.client_log_widget.appendPlainText("[{}] SEND: ".format(
+				strftime("%H:%M:%S")) + ''.join('0x{:02X} '.format(a) for a in self.fixed_packet))
 			self.client.asyn_recv_flag = False
 			self.client.s.sendall(bytearray(self.fixed_packet))	
 			data_raw = self.client.s.recv(1024)
 			self.client.asyn_recv_flag = True
 			# self.log_widget.appendPlainText("[{}] recv: {}".format(strftime("%H:%M:%S"), data_raw))
-			self.log_widget.appendPlainText("[{}] recv: ".format(strftime("%H:%M:%S")) +''.join('0x{:02X} '.format(a) for a in data_raw))
-			self.client_log_widget.appendPlainText("[{}] RECV: ".format(strftime("%H:%M:%S")) + ''.join('0x{:02X} '.format(a) for a in data_raw))
+			self.log_widget.appendPlainText("[{}] recv: ".format(
+				strftime("%H:%M:%S")) +''.join('0x{:02X} '.format(a) for a in data_raw))
+			self.client_log_widget.appendPlainText("[{}] RECV: ".format(
+				strftime("%H:%M:%S")) + ''.join('0x{:02X} '.format(a) for a in data_raw))
 		except:
 			traceback.print_exc()
 			self.client.asyn_recv_flag = True
-			self.log_widget.appendPlainText("[{}] RECV: {}".format(strftime("%H:%M:%S"), traceback.format_exc()))
+			self.log_widget.appendPlainText("[{}] RECV: {}".format(
+				strftime("%H:%M:%S"), traceback.format_exc()))
 			self.client_log_widget.appendPlainText("[{}] RECV: TIMEOUT".format(strftime("%H:%M:%S")))
 	
 	def on_status_to_log(self, status_str):
@@ -295,88 +315,116 @@ class CommonWindow(QtWidgets.QWidget):
 	
 	def on_send_size(self):
 		print(self.tab_wdg.tabs.size())
+
+	def on_change_server_client_connection(self, value):
+		if value is True:
+			# self.tab_wdg.led_status_tab1.pressed()
+			self.tab_wdg.led_status_tab1.setChecked(True)
+			self.server_log_widget.appendPlainText('Client connection status: {}'.format(value))
+		if value is False:
+			self.tab_wdg.led_status_tab1.setChecked(False)
+			self.server_log_widget.appendPlainText('Client connection status: {}'.format(value))
 	
 	@QtCore.pyqtSlot()
 	def on_client_change_cmd(self):
 		if self.tab_wdg.cmd_combobox.currentText() == 'Write[0x1x]':
-			self.log_widget.appendPlainText("[{}] change cmd[client]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.cmd_combobox.currentText()))
+			self.log_widget.appendPlainText("[{}] change cmd[client]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.cmd_combobox.currentText()))
 			self.client_cmd = 0x01
 		elif self.tab_wdg.cmd_combobox.currentText() == 'Read[0x2x]':
-			self.log_widget.appendPlainText("[{}] change cmd[client]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.cmd_combobox.currentText()))
+			self.log_widget.appendPlainText("[{}] change cmd[client]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.cmd_combobox.currentText()))
 			self.client_cmd = 0x02
 		else:
-			self.log_widget.appendPlainText("[{}] failed change cmd[client]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.cmd_combobox.currentText()))
+			self.log_widget.appendPlainText("[{}] failed change cmd[client]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.cmd_combobox.currentText()))
 	
 	@QtCore.pyqtSlot()
 	def on_server_change_cmd(self):
 		if self.tab_wdg.cmd_combobox_tab1.currentText() == 'Write[0x1x]':
-			self.log_widget.appendPlainText("[{}] change cmd[server]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.cmd_combobox_tab1.currentText()))
+			self.log_widget.appendPlainText("[{}] change cmd[server]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.cmd_combobox_tab1.currentText()))
 			self.server_cmd = 0x01
 		elif self.tab_wdg.cmd_combobox_tab1.currentText() == 'Read[0x2x]':
-			self.log_widget.appendPlainText("[{}] change cmd[server]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.cmd_combobox_tab1.currentText()))
+			self.log_widget.appendPlainText("[{}] change cmd[server]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.cmd_combobox_tab1.currentText()))
 			self.server_cmd = 0x02
 		else:
-			self.log_widget.appendPlainText("[{}] failed change cmd[server]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.cmd_combobox_tab1.currentText()))
+			self.log_widget.appendPlainText("[{}] failed change cmd[server]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.cmd_combobox_tab1.currentText()))
 	
 	@QtCore.pyqtSlot()
 	def on_client_change_data_type(self):
 		if self.tab_wdg.datatype_combobox.currentText() == 'Byte[I8/U8]':
-			self.log_widget.appendPlainText("[{}] change data type[client]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox.currentText()))
+			self.log_widget.appendPlainText("[{}] change data type[client]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox.currentText()))
 			self.client_data_type = 0x01
 			self.tab_wdg.le_data_tab2.setValidator(QRegExpValidator(QtCore.QRegExp("[a-fA-F0-9]{2}")))
 			self.tab_wdg.le_data_tab2.setText("00")			
 		elif self.tab_wdg.datatype_combobox.currentText() == 'Short[I16/U16]':
-			self.log_widget.appendPlainText("[{}] change data type[client]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox.currentText()))
+			self.log_widget.appendPlainText("[{}] change data type[client]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox.currentText()))
 			self.client_data_type = 0x02		
 			self.tab_wdg.le_data_tab2.setValidator(QRegExpValidator(QtCore.QRegExp("[a-fA-F0-9]{4}")))
 			self.tab_wdg.le_data_tab2.setText("0000")
 		elif self.tab_wdg.datatype_combobox.currentText() == 'Word[I32/U32]':
-			self.log_widget.appendPlainText("[{}] change data type[client]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox.currentText()))
+			self.log_widget.appendPlainText("[{}] change data type[client]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox.currentText()))
 			self.client_data_type = 0x03	
 			self.tab_wdg.le_data_tab2.setValidator(QRegExpValidator(QtCore.QRegExp("[a-fA-F0-9]{8}")))
 			self.tab_wdg.le_data_tab2.setText("00000000")			
 		elif self.tab_wdg.datatype_combobox.currentText() == 'Real[Float]':
-			self.log_widget.appendPlainText("[{}] change data type[client]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox.currentText()))
+			self.log_widget.appendPlainText("[{}] change data type[client]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox.currentText()))
 			self.client_data_type = 0x04
 			self.tab_wdg.le_data_tab2.setValidator(QRegExpValidator(QtCore.QRegExp("-?(0(\.\d*)?|([1-9]\d*\.?\d*)|(\.\d+))([Ee][+-]?\d+)?")))
 			self.tab_wdg.le_data_tab2.setText("0.0")					
 		elif self.tab_wdg.datatype_combobox.currentText() == 'nByte[Custom]':
-			self.log_widget.appendPlainText("[{}] change data type[client]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox.currentText()))
+			self.log_widget.appendPlainText("[{}] change data type[client]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox.currentText()))
 			self.client_data_type = 0x05
 			self.tab_wdg.le_data_tab2.setValidator(QRegExpValidator(QtCore.QRegExp("[a-fA-F0-9]{20}")))
 			self.tab_wdg.le_data_tab2.setText("00000000")			
 		else:
-			self.log_widget.appendPlainText("[{}] failed change datatype[client]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox.currentText()))
+			self.log_widget.appendPlainText("[{}] failed change datatype[client]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox.currentText()))
 	
 	@QtCore.pyqtSlot()
 	def on_server_change_data_type(self):
 		if self.tab_wdg.datatype_combobox_tab1.currentText() == 'Byte[I8/U8]':
-			self.log_widget.appendPlainText("[{}] change data type[server]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox_tab1.currentText()))
+			self.log_widget.appendPlainText("[{}] change data type[server]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox_tab1.currentText()))
 			self.server_data_type = 0x01
 			self.tab_wdg.le_data_tab1.setValidator(QRegExpValidator(QtCore.QRegExp("[a-fA-F0-9]{2}")))
 			self.tab_wdg.le_data_tab1.setText("00")			
 		elif self.tab_wdg.datatype_combobox_tab1.currentText() == 'Short[I16/U16]':
-			self.log_widget.appendPlainText("[{}] change data type[server]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox_tab1.currentText()))
+			self.log_widget.appendPlainText("[{}] change data type[server]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox_tab1.currentText()))
 			self.server_data_type = 0x02		
 			self.tab_wdg.le_data_tab1.setValidator(QRegExpValidator(QtCore.QRegExp("[a-fA-F0-9]{4}")))
 			self.tab_wdg.le_data_tab1.setText("0000")
 		elif self.tab_wdg.datatype_combobox_tab1.currentText() == 'Word[I32/U32]':
-			self.log_widget.appendPlainText("[{}] change data type[server]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox_tab1.currentText()))
+			self.log_widget.appendPlainText("[{}] change data type[server]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox_tab1.currentText()))
 			self.server_data_type = 0x03	
 			self.tab_wdg.le_data_tab1.setValidator(QRegExpValidator(QtCore.QRegExp("[a-fA-F0-9]{8}")))
 			self.tab_wdg.le_data_tab1.setText("00000000")			
 		elif self.tab_wdg.datatype_combobox_tab1.currentText() == 'Real[Float]':
-			self.log_widget.appendPlainText("[{}] change data type[server]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox_tab1.currentText()))
+			self.log_widget.appendPlainText("[{}] change data type[server]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox_tab1.currentText()))
 			self.server_data_type = 0x04
-			self.tab_wdg.le_data_tab1.setValidator(QRegExpValidator(QtCore.QRegExp("-?(0(\.\d*)?|([1-9]\d*\.?\d*)|(\.\d+))([Ee][+-]?\d+)?")))
+			self.tab_wdg.le_data_tab1.setValidator(QRegExpValidator(
+				QtCore.QRegExp("-?(0(\.\d*)?|([1-9]\d*\.?\d*)|(\.\d+))([Ee][+-]?\d+)?")))
 			self.tab_wdg.le_data_tab1.setText("0.0")					
 		elif self.tab_wdg.datatype_combobox_tab1.currentText() == 'nByte[Custom]':
-			self.log_widget.appendPlainText("[{}] change data type[server]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox_tab1.currentText()))
+			self.log_widget.appendPlainText("[{}] change data type[server]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox_tab1.currentText()))
 			self.server_data_type = 0x05
 			self.tab_wdg.le_data_tab1.setValidator(QRegExpValidator(QtCore.QRegExp("[a-fA-F0-9]{20}")))
 			self.tab_wdg.le_data_tab1.setText("00000000")			
 		else:
-			self.log_widget.appendPlainText("[{}] failed change datatype[server]: {}".format(strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox_tab1.currentText()))
+			self.log_widget.appendPlainText("[{}] failed change datatype[server]: {}".format(
+				strftime("%H:%M:%S"), self.tab_wdg.datatype_combobox_tab1.currentText()))
 
 	@QtCore.pyqtSlot()	
 	def server_init(self):
@@ -388,19 +436,23 @@ class CommonWindow(QtWidgets.QWidget):
 				self.log_widget.appendPlainText("[{}] server run successful".format(strftime("%H:%M:%S")))	
 				self.server_state = 1
 				self.tab_wdg.btn_run_server.setText('Shutdown')
-				self.tab_wdg.led_status_tab1.toggle()
+				# self.tab_wdg.led_status_tab1.toggle()
 			except:
-				self.log_widget.appendPlainText("[{}] server run failed: \n {}".format(strftime("%H:%M:%S"), traceback.format_exc()))	
+				self.log_widget.appendPlainText("[{}] server run failed: \n {}".format(
+					strftime("%H:%M:%S"), traceback.format_exc()))
 				self.server_state = 0
 		else:
 			try:
 				self.serv_nonblocking.stop()
-				self.log_widget.appendPlainText("[{}] server shutdown success: \n {}".format(strftime("%H:%M:%S"), traceback.format_exc()))
+				self.log_widget.appendPlainText("[{}] server shutdown success: \n {}".format(
+					strftime("%H:%M:%S"), traceback.format_exc()))
 				self.server_state = 0
 				self.tab_wdg.btn_run_server.setText('Run')
-				self.tab_wdg.led_status_tab1.toggle()
+				self.tab_wdg.led_status_tab1.setChecked(False)
+				# self.tab_wdg.led_status_tab1.toggle()
 			except:
-				self.log_widget.appendPlainText("[{}] server shutdown failed: \n {}".format(strftime("%H:%M:%S"), traceback.format_exc()))
+				self.log_widget.appendPlainText("[{}] server shutdown failed: \n {}".format(
+					strftime("%H:%M:%S"), traceback.format_exc()))
 
 	@QtCore.pyqtSlot()
 	def server_send_datapacket(self):
@@ -418,7 +470,8 @@ class CommonWindow(QtWidgets.QWidget):
 				if self.tab_wdg.datamode_combobox_tab1.currentText() == 'Fixed':
 					byte_arr = int(self.tab_wdg.le_data_tab2.text(), 16)
 					self.fixed_packet[5] = byte_arr
-					self.log_widget.appendPlainText("[{}] data(byte): {}".format(strftime("%H:%M:%S"), self.fixed_packet[5]))
+					self.log_widget.appendPlainText("[{}] data(byte): {}".format(
+						strftime("%H:%M:%S"), self.fixed_packet[5]))
 				elif self.tab_wdg.datamode_combobox_tab1.currentText() == 'Random':
 					self.fixed_packet[5] = np.random.randint(0, 255)
 				elif self.tab_wdg.datamode_combobox_tab1.currentText() == 'List':
@@ -441,7 +494,8 @@ class CommonWindow(QtWidgets.QWidget):
 					byte_arr = 0x00
 				self.fixed_packet[5] = (byte_arr >> 8) & 0xff
 				self.fixed_packet[6] = byte_arr & 0xff
-				self.log_widget.appendPlainText("[{}] hex data(short): {}".format(strftime("%H:%M:%S"), byte_arr))
+				self.log_widget.appendPlainText("[{}] hex data(short): {}".format(
+					strftime("%H:%M:%S"), byte_arr))
 			elif self.server_data_type == 0x03:
 				self.fixed_packet = [0x01, 0x02, 0x13, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01]
 				# | our address | server address | cmd | reg hi | reg low | data |
@@ -462,7 +516,8 @@ class CommonWindow(QtWidgets.QWidget):
 				self.fixed_packet[6] = (byte_arr >> 16) & 0xff
 				self.fixed_packet[7] = (byte_arr >> 8) & 0xff
 				self.fixed_packet[8] = (byte_arr & 0xff)
-				self.log_widget.appendPlainText("[{}] data(word): {:4X}".format(strftime("%H:%M:%S"), byte_arr))
+				self.log_widget.appendPlainText("[{}] data(word): {:4X}".format(
+					strftime("%H:%M:%S"), byte_arr))
 			elif self.server_data_type == 0x04:
 				self.fixed_packet = [0x01, 0x02, 0x14, 0x00, 0x01, 0x01, 0x02, 0x03, 0x04]
 				# | our address | server address | cmd | reg hi | reg low | data |
@@ -504,12 +559,14 @@ class CommonWindow(QtWidgets.QWidget):
 
 			if int(self.tab_wdg.le_timeout_tab1.text()) != 0:
 				self.timer.start(int(self.tab_wdg.le_timeout_tab1.text())*1000)
-				self.log_widget.appendPlainText("[{}] multi shot, repeat time: {} sec".format(strftime("%H:%M:%S"), int(self.tab_wdg.le_timeout_tab1.text())))
+				self.log_widget.appendPlainText("[{}] multi shot, repeat time: {} sec".format(
+					strftime("%H:%M:%S"), int(self.tab_wdg.le_timeout_tab1.text())))
 			else:
 				self.timer.stop()
 				self.log_widget.appendPlainText("[{}] single shot".format(strftime("%H:%M:%S")))
 			print(self.fixed_packet)
-			self.client_log_widget.appendPlainText("[{}] SEND: ".format(strftime("%H:%M:%S")) + ''.join('0x{:02X} '.format(a) for a in self.fixed_packet))
+			self.client_log_widget.appendPlainText("[{}] SEND: ".format(
+				strftime("%H:%M:%S")) + ''.join('0x{:02X} '.format(a) for a in self.fixed_packet))
 			
 			self.serv_nonblocking.server_send_data(bytearray(self.fixed_packet))
 

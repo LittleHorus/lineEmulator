@@ -18,6 +18,7 @@ class ServerThread(QtCore.QThread):
 	status_packet = QtCore.pyqtSignal(str)
 	data = QtCore.pyqtSignal(np.ndarray)
 	progress = QtCore.pyqtSignal(int)
+	client_connect = QtCore.pyqtSignal(bool)
 
 	def __init__(self, server_ip='', server_port=9110):
 		# QtCore.QThread.__init__(self, parent)
@@ -83,6 +84,7 @@ class ServerThread(QtCore.QThread):
 				self.status_signal.emit("server closing connection to {}".format(data.addr))
 				sel.unregister(sock)
 				sock.close()
+				self.client_connect.emit(True)
 		if mask & selectors.EVENT_WRITE:
 			if data.outb:
 				# print('sending: ', repr(data.outb), 'to', data.addr)
@@ -115,6 +117,7 @@ class ServerThread(QtCore.QThread):
 			print('server recv handshake: {}'.format(input_data))
 			data_response = [0xDA, 0xBA, 0x01, 0x01]
 			print('server send handshake: {}'.format(data_response))
+			self.client_connect.emit(True)
 
 		elif ((input_data[1]) & 0x0f) == 0x01 and (
 				((input_data[2]) & 0xf0) == 0x10 or ((input_data[2]) & 0xf0) == 0x20):
