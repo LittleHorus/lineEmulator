@@ -3158,7 +3158,7 @@
 				<unit>ms</unit>
 			</data_presentation>
 		</element>
-		<element alias="unknow_parameter">
+		<element alias="unknown_parameter">
 			<address>0x003B</address>
 			<caption>Резерв</caption>
 			<rw>true</rw>

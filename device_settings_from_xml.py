@@ -32,8 +32,8 @@ class XmlDataLoader():
 					device_protocol_version = root[0][i].text
 				if root[0][i].tag == 'address':
 					device_address = int(root[0][i].text, 16)
-			self.device_dict.update({"device":device_type, "version": device_protocol_version, "address": device_address})
-			self.device_dict.update({'elements':{'regs':0}})
+			self.device_dict.update({"device": device_type, "version": device_protocol_version, "address": device_address})
+			self.device_dict.update({'elements': {'regs': 0}})
 
 			for i in range(len(list(root[1]))):
 				att_alias = root[1][i].attrib['alias']
@@ -52,13 +52,38 @@ class XmlDataLoader():
 					if root[1][i][j].tag == 'default_view':
 						def_view = root[1][i][j].text		
 					if root[1][i][j].tag == 'data_presentation':
-						data_pres = root[1][i][j].text	
-						#if root[1][i][j]
-
-				
-				self.device_dict['elements'].update({addr:{'alias':att_alias,\
-				 'caption':caption, 'rw': rw, 'description': desc, 'type': type_,\
-				  'default_view':def_view, 'data_presentation':data_pres}})
+						data_presentation_type = root[1][i][j].attrib['type']
+						print(data_presentation_type, type(data_presentation_type))
+						if data_presentation_type == 'range':
+							for n in range(len(list(root[1][i][j]))):
+								if root[1][i][j][n].tag == 'minimum':
+									range_param_minimum = root[1][i][j][n].text
+								if root[1][i][j][n].tag == 'maximum':
+									range_param_maximum = root[1][i][j][n].text
+								if root[1][i][j][n].tag == 'step':
+									range_param_step = root[1][i][j][n].text
+								if root[1][i][j][n].tag == 'unit':
+									range_param_unit = root[1][i][j][n].text
+						if data_presentation_type == 'bytes':
+							for n in range(len(list(root[1][i][j]))):
+								if root[1][i][j][n].tag == 'encoding':
+									bytes_param_encoding = root[1][i][j][n].text
+								if root[1][i][j][n].tag == 'max_length':
+									bytes_param_max_length = root[1][i][j][n].text
+						if data_presentation_type == 'enum':
+							enum_param_id = [{'id': '0', 'value': '0', ' text': ''}] * len(list(root[1][i][j]))
+							for n in range(len(list(root[1][i][j]))):
+								enum_attrib = root[1][i][j][n].attrib['id']
+								enum_param_id[n]['id'] = root[1][i][j][n].attrib['id']
+								for m in range(len(list(root[1][i][j][n]))):
+									if root[1][i][j][n][m].tag == 'value':
+										enum_param_id[m]['value'] = root[1][i][j][n][m].text
+									if root[1][i][j][n][m].tag == 'text':
+										enum_param_id[m]['text'] = root[1][i][j][n][m].text
+						data_pres = data_presentation_type  # root[1][i][j].text
+				self.device_dict['elements'].update({addr: {'alias': att_alias,\
+				 'caption': caption, 'rw': rw, 'description': desc, 'type': type_,\
+				  'default_view': def_view, 'data_presentation': data_pres}})
 				self.device_dict['elements']['regs'] += 1
 			print(self.device_dict)									
 		except:

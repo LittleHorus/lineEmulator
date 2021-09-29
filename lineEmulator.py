@@ -117,6 +117,7 @@ class CommonWindow(QtWidgets.QWidget):
 
 		xml_data = XmlDataLoader()
 		xml_data.xml_load("{}\\data\\plc_device.xml".format(pathlib.Path(__file__).parent.resolve()))
+		print(xml_data.device_dict)
 
 		try:
 			self.serv_nonblocking.client_connect.connect(self.on_change_server_client_connection)
@@ -468,7 +469,7 @@ class CommonWindow(QtWidgets.QWidget):
 				self.fixed_packet[3] = (reg_number >> 8) & 0xff
 				self.fixed_packet[4] = reg_number & 0xff
 				if self.tab_wdg.datamode_combobox_tab1.currentText() == 'Fixed':
-					byte_arr = int(self.tab_wdg.le_data_tab2.text(), 16)
+					byte_arr = int(self.tab_wdg.le_data_tab1.text(), 16)
 					self.fixed_packet[5] = byte_arr
 					self.log_widget.appendPlainText("[{}] data(byte): {}".format(
 						strftime("%H:%M:%S"), self.fixed_packet[5]))
@@ -485,7 +486,7 @@ class CommonWindow(QtWidgets.QWidget):
 				self.fixed_packet[3] = (reg_number >> 8) & 0xff
 				self.fixed_packet[4] = reg_number & 0xff
 				if self.tab_wdg.datamode_combobox_tab1.currentText() == 'Fixed':
-					byte_arr = int(self.tab_wdg.le_data_tab2.text(), 16)
+					byte_arr = int(self.tab_wdg.le_data_tab1.text(), 16)
 				elif self.tab_wdg.datamode_combobox_tab1.currentText() == 'Random':
 					byte_arr = np.random.randint(0, 16383)
 				elif self.tab_wdg.datamode_combobox_tab1.currentText() == 'List':
