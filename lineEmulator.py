@@ -29,7 +29,7 @@ from device_settings_from_xml import XmlDataLoader
 from client_thread import ClientThread
 from server_thread import ServerThread
 
-__version__ = '1.0.3'
+__version__ = '1.0.4'
 __author__ = 'lha_hl'
 
 mark_line = 0x01
@@ -65,10 +65,12 @@ class CommonWindow(QtWidgets.QWidget):
 		self.client_log_widget.insertPlainText("Client log: ")
 		self.client_log_widget.setReadOnly(True)
 		self.client_log_widget.setMaximumSize(400, 600)
+		self.client_log_widget.setMinimumSize(350, 600)
 
 		self.server_log_widget = QtWidgets.QPlainTextEdit()
 		self.server_log_widget.insertPlainText('Server log:')
 		self.server_log_widget.setReadOnly(True)
+		self.server_log_widget.setMinimumSize(350, 600)
 		self.server_log_widget.setMaximumSize(400, 600)
 
 		self.tab_wdg = TabWidgetCustom(self, horizontal_size, vertical_size)
@@ -639,8 +641,9 @@ if __name__ == '__main__':
 	# ex.setWindowFlags(ex.windowFlags() | QtCore.Qt.FramelessWindowHint)
 	# ex.comport_combo.addItems(serial_ports())
 	# ex.setFixedSize(500,400)
-	# ex.resize(300,200)
-	ex.adjustSize()
+	ex.setMinimumSize(1200, 800)
+	ex.resize(1200, 800)
+	# ex.adjustSize()
 	# ico = QtGui.QIcon("icon.png")
 	# ex.setWindowIcon(ico)#icon for window only
 	# app.setWindowIcon(ico)#icon for application

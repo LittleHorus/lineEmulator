@@ -20,8 +20,12 @@ class TabWidgetCustom(QtWidgets.QWidget):
         self.value_1_100000 = QRegExpValidator(QtCore.QRegExp("[0-9]{5}"))  # QtGui.QIntValidator(1,99999)
         self.tabs = QtWidgets.QTabWidget()
         self.tab1 = QtWidgets.QWidget()  # server tab
+        self.tab1.setMinimumSize(300, 400)
+        # self.tab1.setMaximumSize(300, 400)
         self.tab2 = QtWidgets.QWidget()  # client tab
-        self.tabs.setMinimumSize(350, 280)
+        self.tab2.setMinimumSize(300, 400)
+        # self.tab2.setMaximumSize(300, 400)
+        self.tabs.setMinimumSize(300, 280)
         self.tabs.resize(350, 280)
 
         self.tabs.addTab(self.tab1, "Server")
