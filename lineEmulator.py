@@ -156,12 +156,10 @@ class CommonWindow(QtWidgets.QWidget):
 	def on_status_packet_from_server_thread(self, value):
 		self.server_log_widget.appendPlainText(
 			"[{}] {}".format(strftime("%H:%M:%S"), value))
-		print('on_client_packet_status_update')
 
 	def on_client_packet_status_update(self, value):
 		self.client_log_widget.appendPlainText(
 			"[{}] {}".format(strftime("%H:%M:%S"), value))
-		print('on_client_packet_status_update')
 
 	@QtCore.pyqtSlot()
 	def on_timer_client_interrupt(self):
@@ -297,22 +295,35 @@ class CommonWindow(QtWidgets.QWidget):
 				self.fixed_packet[6] = ba[1]
 				self.fixed_packet[7] = ba[2]
 				self.fixed_packet[8] = ba[3]
-				self.log_widget.appendPlainText("[{}] data(float): {:02X}{:02X}{:02X}{:02X}({})"
-												.format(strftime("%H:%M:%S"), ba[0], ba[1], ba[2], ba[3], ba))
+				self.log_widget.appendPlainText(
+					"[{}] data(float): {:02X}{:02X}{:02X}{:02X}({})"
+					.format(strftime("%H:%M:%S"), ba[0], ba[1], ba[2], ba[3], ba))
 			if self.client_data_type == 0x05:
-				self.fixed_packet = [0x01, 0x02, 0x01, 0x11, 0x00, 0x01]
+				str_data_block = self.tab_wdg.le_data_tab2.text()
+				data_block_length = len(str_data_block)
+				self.fixed_packet = [0]*(data_block_length+9)
 				# | our address | server address | cmd | reg hi | reg low | data |
 				self.fixed_packet[0] = cl_addr
 				self.fixed_packet[1] = 0x01 | ((mark_line << 4) & 0xf0)
 				self.fixed_packet[2] = (self.client_cmd << 4) | (self.client_data_type & 0xf)
 				self.fixed_packet[3] = (reg_number >> 8) & 0xff
 				self.fixed_packet[4] = reg_number & 0xff
+
+				self.fixed_packet[5] = (data_block_length >> 24) & 0xff
+				self.fixed_packet[6] = (data_block_length >> 16) & 0xff
+				self.fixed_packet[7] = (data_block_length >> 8) & 0xff
+				self.fixed_packet[8] = data_block_length & 0xff
+
 				if self.tab_wdg.datamode_combobox.currentText() == 'Fixed':
-					self.fixed_packet[5] = int(self.tab_wdg.le_data_tab2.text())
+					for i in range(data_block_length):
+						self.fixed_packet[9 + i] = int(str_data_block[i], 16)
 				elif self.tab_wdg.datamode_combobox.currentText() == 'Random':
-					self.fixed_packet[5] = np.random.random_integers(0, 255)
+					for i in range(data_block_length):
+						self.fixed_packet[9 + i] = np.random.random_integers(0, 255)
 				elif self.tab_wdg.datamode_combobox.currentText() == 'List':
-					self.fixed_packet[5] = np.random.random_integers(0, 255)
+					for i in range(data_block_length):
+						self.fixed_packet[9 + i] = np.random.random_integers(0, 255)
+
 			if int(self.tab_wdg.le_timeout_tab2.text()) != 0:
 				self.timer.start(int(self.tab_wdg.le_timeout_tab2.text()) * 1000)
 				self.log_widget.appendPlainText("[{}] multi shot, repeat time: {} sec".format(
@@ -573,19 +584,30 @@ class CommonWindow(QtWidgets.QWidget):
 					strftime("%H:%M:%S"), ba[0], ba[1], ba[2], ba[3], data_float))
 
 			if self.server_data_type == 0x05:
-				self.fixed_packet = [0x01, 0x02, 0x01, 0x11, 0x00, 0x01]
+				str_data_block = self.tab_wdg.le_data_tab1.text()
+				data_block_length = len(str_data_block)
+				self.fixed_packet = [0]*(data_block_length+9)
 				# | our address | server address | cmd | reg hi | reg low | data |
 				self.fixed_packet[0] = 0x01 | mark_line
 				self.fixed_packet[1] = cl_addr
 				self.fixed_packet[2] = (self.server_cmd << 4) | (self.server_data_type & 0xf)
 				self.fixed_packet[3] = (reg_number >> 8) & 0xff
 				self.fixed_packet[4] = reg_number & 0xff
+
+				self.fixed_packet[5] = (data_block_length >> 24) & 0xff
+				self.fixed_packet[6] = (data_block_length >> 16) & 0xff
+				self.fixed_packet[7] = (data_block_length >> 8) & 0xff
+				self.fixed_packet[8] = data_block_length & 0xff
+
 				if self.tab_wdg.datamode_combobox_tab1.currentText() == 'Fixed':
-					self.fixed_packet[5] = int(self.tab_wdg.le_data_tab1.text())
+					for i in range(data_block_length):
+						self.fixed_packet[9 + i] = int(str_data_block[i], 16)
 				elif self.tab_wdg.datamode_combobox_tab1.currentText() == 'Random':
-					self.fixed_packet[5] = np.random.random_integers(0, 255)
+					for i in range(data_block_length):
+						self.fixed_packet[9 + i] = np.random.random_integers(0, 255)
 				elif self.tab_wdg.datamode_combobox_tab1.currentText() == 'List':
-					self.fixed_packet[5] = np.random.random_integers(0, 255)
+					for i in range(data_block_length):
+						self.fixed_packet[9 + i] = np.random.random_integers(0, 255)
 
 			if int(self.tab_wdg.le_timeout_tab1.text()) != 0:
 				self.timer.start(int(self.tab_wdg.le_timeout_tab1.text()) * 1000)

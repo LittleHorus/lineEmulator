@@ -158,51 +158,145 @@ class ServerThread(QtCore.QThread):
 				data_response[0] = input_data[0]
 				data_response[1] = 0x11
 				data_response[2] = (input_data[2] & 0x0f) | 0x50
+				data_response[3] = input_data[3]  # reg hi
+				data_response[4] = input_data[4]  # reg lo
+
 				if ((input_data[2]) & 0xf0) == 0x10:  # write
+					data_response[5] = input_data[5]
 					if reg_in_base_bool is True:
 						self.server_regs_dict['value'][element_index] = input_data[5]
 					else:
 						self.server_regs_dict['regs'].append(reg_addr_request)
 						self.server_regs_dict['value'].append(input_data[5])
 						self.server_regs_dict['data_type'].append('byte')
-					for a in range(len(input_data) - 3):
-						data_response[a + 3] = input_data[a + 3]
 				if ((input_data[2]) & 0xf0) == 0x20:  # read
+					data_response[5] = input_data[5]
 					if reg_in_base_bool is True:
 						data_response[5] = self.server_regs_dict['value'][element_index]
 					else:
 						data_response[5] = 0
-					for a in range(len(input_data) - 4):
-						data_response[a + 3] = input_data[a + 3]
 
 			elif (input_data[2] & 0x0f) == 0x02:
 				data_response = [0] * 7
 				data_response[0] = input_data[0]
 				data_response[1] = 0x11
 				data_response[2] = (input_data[2] & 0x0f) | 0x50
-				for a in range(len(input_data) - 3):
-					data_response[a + 3] = input_data[a + 3]
-			elif (input_data[2] & 0x0f) == 0x03:
+				data_response[3] = input_data[3]  # reg hi
+				data_response[4] = input_data[4]  # reg lo
+
+				if ((input_data[2]) & 0xf0) == 0x10:  # write
+					if reg_in_base_bool is True:
+						self.server_regs_dict['value'][element_index] = (input_data[5] << 8) | input_data[6]
+					else:
+						self.server_regs_dict['regs'].append(reg_addr_request)
+						self.server_regs_dict['value'].append((input_data[5] << 8) | input_data[6])
+						self.server_regs_dict['data_type'].append('short')
+					for a in range(len(input_data) - 3):
+						data_response[a + 3] = input_data[a + 3]
+				if ((input_data[2]) & 0xf0) == 0x20:  # read
+					if reg_in_base_bool is True:
+						data_response[5] = (self.server_regs_dict['value'][element_index] >> 8) & 0xff
+						data_response[6] = self.server_regs_dict['value'][element_index] & 0xff
+					else:
+						data_response[5] = 0
+						data_response[6] = 0
+
+			elif (input_data[2] & 0x0f) == 0x03:  # word data type
 				data_response = [0] * 9
 				data_response[0] = input_data[0]
 				data_response[1] = 0x11
 				data_response[2] = (input_data[2] & 0x0f) | 0x50
-				for a in range(len(input_data) - 3):
-					data_response[a + 3] = input_data[a + 3]
-			elif (input_data[2] & 0x0f) == 0x04:
+				data_response[3] = input_data[3]  # reg hi
+				data_response[4] = input_data[4]  # reg lo
+
+				if ((input_data[2]) & 0xf0) == 0x10:  # write
+					if reg_in_base_bool is True:
+						self.server_regs_dict['value'][element_index] = \
+							(input_data[5] << 24) | (input_data[6] << 16) | (input_data[7] << 8) | input_data[8]
+					else:
+						self.server_regs_dict['regs'].append(reg_addr_request)
+						self.server_regs_dict['value'].append(
+							(input_data[5] << 24) | (input_data[6] << 16) | (input_data[7] << 8) | input_data[8])
+						self.server_regs_dict['data_type'].append('word')
+					for a in range(len(input_data) - 3):
+						data_response[a + 3] = input_data[a + 3]
+				if ((input_data[2]) & 0xf0) == 0x20:  # read
+					if reg_in_base_bool is True:
+						data_response[5] = (self.server_regs_dict['value'][element_index] >> 24) & 0xff
+						data_response[6] = (self.server_regs_dict['value'][element_index] >> 16) & 0xff
+						data_response[7] = (self.server_regs_dict['value'][element_index] >> 8) & 0xff
+						data_response[8] = self.server_regs_dict['value'][element_index] & 0xff
+					else:
+						data_response[5] = 0
+						data_response[6] = 0
+						data_response[7] = 0
+						data_response[8] = 0
+			elif (input_data[2] & 0x0f) == 0x04:  # float data type
 				data_response = [0] * 9
 				data_response[0] = input_data[0]
 				data_response[1] = 0x11
 				data_response[2] = (input_data[2] & 0x0f) | 0x50
-				for a in range(len(input_data) - 3):
-					data_response[a + 3] = input_data[a + 3]
+				data_response[3] = input_data[3]  # reg hi
+				data_response[4] = input_data[4]  # reg lo
+
+				if ((input_data[2]) & 0xf0) == 0x10:  # write
+					if reg_in_base_bool is True:
+						self.server_regs_dict['value'][element_index] = \
+							(input_data[5] << 24) | (input_data[6] << 16) | (input_data[7] << 8) | input_data[8]
+					else:
+						self.server_regs_dict['regs'].append(reg_addr_request)
+						self.server_regs_dict['value'].append(
+							(input_data[5] << 24) | (input_data[6] << 16) | (input_data[7] << 8) | input_data[8])
+						self.server_regs_dict['data_type'].append('float')
+					for a in range(len(input_data) - 3):
+						data_response[a + 3] = input_data[a + 3]
+				if ((input_data[2]) & 0xf0) == 0x20:  # read
+					if reg_in_base_bool is True:
+						data_response[5] = (self.server_regs_dict['value'][element_index] >> 24) & 0xff
+						data_response[6] = (self.server_regs_dict['value'][element_index] >> 16) & 0xff
+						data_response[7] = (self.server_regs_dict['value'][element_index] >> 8) & 0xff
+						data_response[8] = self.server_regs_dict['value'][element_index] & 0xff
+					else:
+						data_response[5] = 0
+						data_response[6] = 0
+						data_response[7] = 0
+						data_response[8] = 0
+
 			elif (input_data[2] & 0x0f) == 0x05:
 				data_response = [0] * len(input_data)
 				data_response[0] = input_data[0]
 				data_response[1] = 0x11
 				data_response[2] = (input_data[2] & 0x0f) | 0x50
-				for a in range(len(input_data) - 3):
-					data_response[a + 3] = input_data[a + 3]
+				data_response[3] = input_data[3]  # reg hi
+				data_response[4] = input_data[4]  # reg lo
+				data_response[5] = input_data[5]  # block length
+				data_response[6] = input_data[6]  # block length
+				data_response[7] = input_data[7]  # block length
+				data_response[8] = input_data[8]  # block length
+				packet_data_length = \
+					(input_data[5] << 24) | (input_data[6] << 16) | (input_data[7] << 8) | input_data[8]
+
+				data_bytes = list()
+
+				if ((input_data[2]) & 0xf0) == 0x10:  # write
+					for i in range(packet_data_length):
+						data_bytes.append(input_data[9 + i])
+					if reg_in_base_bool is True:
+						self.server_regs_dict['value'][element_index] = data_bytes
+						self.server_regs_dict['data_type'][element_index] = 'byte_array'
+					else:
+						self.server_regs_dict['regs'].append(reg_addr_request)
+						self.server_regs_dict['value'].append(data_bytes)
+						self.server_regs_dict['data_type'].append('byte_array')
+
+				if ((input_data[2]) & 0xf0) == 0x20:  # read
+					if reg_in_base_bool is True:
+						for i in range(packet_data_length):
+							data_response[9+i] = self.server_regs_dict['value'][element_index][i]
+					else:
+						for i in range(packet_data_length):
+							data_response[9+i] = 0
+
 			else:
 				self.status_signal.emit(
 					"data type unknown: {}, cmd byte: {}".format((input_data[2] & 0x0f), input_data[2]))
