@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+import traceback
 
 from PyQt5 import QtCore
 import selectors
@@ -9,6 +10,8 @@ sel_client = selectors.DefaultSelector()
 
 
 class ClientThread(QtCore.QThread):
+	status_packet = QtCore.pyqtSignal(str)
+
 	def __init__(self, connect_ip='0.0.0.0', connect_port='0', client_addr='2'):
 		QtCore.QThread.__init__(self, None)
 		self.__ip = connect_ip
@@ -21,9 +24,7 @@ class ClientThread(QtCore.QThread):
 		self.server_handshake_bytearray = bytearray(self.server_handshake)
 
 		self.out_inner_address = 0x12
-
 		self.running = False
-
 		self.client_handshake = [0x3d, 0xec, 0x01, 0x01]
 		self.client_handshake[3] = int(self.client_bus_serial_number)
 		self.client_handshake_bytearray = bytearray(self.client_handshake)
@@ -37,7 +38,6 @@ class ClientThread(QtCore.QThread):
 					self.asyn_recv_raw = self.s.recv(100)
 				except:
 					pass
-				print('client running exception rise')
 				if self.asyn_recv_raw:
 					print("client received: {}".format(self.asyn_recv_raw))
 					data_to_send = self.packet_proccessing(self.asyn_recv_raw)
@@ -58,7 +58,7 @@ class ClientThread(QtCore.QThread):
 		sock = key.fileobj
 		data = key.data
 		if mask & selectors.EVENT_READ:
-			recv_data = sock.recv(1024)
+			recv_data = sock.recv(64)
 			if recv_data:
 				print('client received', repr(recv_data))
 			else:
@@ -85,13 +85,14 @@ class ClientThread(QtCore.QThread):
 			#sel_client.register(self.s, self.events, data=data)
 
 			self.s.send(self.client_handshake_bytearray)
-			data_raw = self.s.recv(1024)
+			data_raw = self.s.recv(64)
 			if data_raw[0] == 0xDA and data_raw[1] == 0xBA:
-				print('client Server handshake: {}'.format(data_raw))
+				print('[client] Server handshake: {}'.format(data_raw))
+				self.status_packet.emit("HANDSHAKE[server]: " + ''.join('0x{:02X} '.format(a) for a in data_raw))
 			else:
 				print('client unknown response: {}'.format(data_raw))
 		except:
-			pass
+			traceback.print_exc()
 
 	def close_connection(self):
 		self.s.close()
@@ -101,30 +102,30 @@ class ClientThread(QtCore.QThread):
 
 	def packet_proccessing(self, input_data):
 		data_response = list()
-		#| our address | server address | cmd | reg hi | reg low | data |
-		if input_data[0] == 0xda and input_data[1] == 0xba :
-			#self.status_signal.emit("byte data type, lenght: {}".format(len(input_data)))
-			#self.status_packet.emit("HANDSHAKE client: "+''.join('0x{:02X} '.format(a) for a in input_data))
-			data_response = [0]*4
-			data_response[0] = 0xDA
-			data_response[1] = 0xBA
-			data_response[2] = 0x01 #protocol version
-			data_response[3] = 0x01 #net address
-		elif ((input_data[1])&0x0f) == 0x02:
-			#self.status_signal.emit("byte data type, lenght: {}".format(len(input_data)))
-			#self.status_packet.emit("RECEIVED: "+''.join('0x{:02X} '.format(a) for a in input_data))
-			if (input_data[2]&0x0f) == 0x01:
+		# | our address | server address | cmd | reg hi | reg low | data |
+		if input_data[0] == 0xda and input_data[1] == 0xba:
+			# self.status_signal.emit("byte data type, length: {}".format(len(input_data)))
+			self.status_packet.emit("HANDSHAKE[server]: "+''.join('0x{:02X} '.format(a) for a in input_data))
+			data_response = [0]*4  # [0x3d, 0xec, 0x01, 0x01]
+			data_response[0] = 0x3d
+			data_response[1] = 0xec
+			data_response[2] = 0x01  # protocol version
+			data_response[3] = 0x01  # net address
+		elif ((input_data[1]) & 0x0f) == 0x02:
+			# self.status_signal.emit("byte data type, length: {}".format(len(input_data)))
+			# self.status_packet.emit("RECEIVED: "+''.join('0x{:02X} '.format(a) for a in input_data))
+			if (input_data[2] & 0x0f) == 0x01:
 				data_response = [0]*6
 				data_response[0] = self.out_inner_address
 				data_response[1] = input_data[0]
-				data_response[2] = (input_data[2]&0x0f)|0x60
+				data_response[2] = (input_data[2] & 0x0f) | 0x60
 				for a in range(len(input_data)-3):
 					data_response[a+3] = input_data[a+3]
 			elif (input_data[2] & 0x0f) == 0x02:
 				data_response = [0]*7
 				data_response[0] = self.out_inner_address
 				data_response[1] = input_data[0]
-				data_response[2] = (input_data[2]&0x0f)|0x60
+				data_response[2] = (input_data[2] & 0x0f) | 0x60
 				for a in range(len(input_data)-3):
 					data_response[a+3] = input_data[a+3]
 			elif (input_data[2] & 0x0f) == 0x03:
@@ -159,5 +160,5 @@ class ClientThread(QtCore.QThread):
 
 	def client_receive_message(self):
 		receive_bytearray = ''
-		receive_bytearray = self.s.recv(1024)
+		receive_bytearray = self.s.recv(64)
 		return receive_bytearray

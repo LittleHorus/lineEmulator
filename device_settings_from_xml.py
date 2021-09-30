@@ -12,8 +12,8 @@ import xml.etree.ElementTree as ET
 __version__ = '1.0.0.a'
 
 
-class XmlDataLoader():
-	def __init__(self, parent = None):
+class XmlDataLoader:
+	def __init__(self):
 		
 		self.device_dict = dict()
 		header = list()
@@ -54,7 +54,7 @@ class XmlDataLoader():
 					if root[1][i][j].tag == 'data_presentation':
 						data_presentation_type = root[1][i][j].attrib['type']
 						data_presentation_dict = {'data_type': '', 'params': ''}
-						print(data_presentation_type, type(data_presentation_type))
+						# print(data_presentation_type, type(data_presentation_type))
 						if data_presentation_type == 'range':
 							range_param_minimum = ''
 							range_param_maximum = ''
@@ -83,7 +83,7 @@ class XmlDataLoader():
 									bytes_param_encoding = root[1][i][j][n].text
 								if root[1][i][j][n].tag == 'max_length':
 									bytes_param_max_length = root[1][i][j][n].text
-							data_presentation_dict['data_type'] = ('bytes')
+							data_presentation_dict['data_type'] = 'bytes'
 							data_presentation_dict['params'] = ({'encoding': bytes_param_encoding,
 																	 'max_length': bytes_param_max_length})
 						if data_presentation_type == 'enum':
@@ -93,17 +93,17 @@ class XmlDataLoader():
 								enum_param_id[n]['id'] = root[1][i][j][n].attrib['id']
 								for m in range(len(list(root[1][i][j][n]))):
 									if root[1][i][j][n][m].tag == 'value':
-										enum_param_id[m]['value'] = root[1][i][j][n][m].text
+										enum_param_id[n]['value'] = root[1][i][j][n][m].text
 									if root[1][i][j][n][m].tag == 'text':
-										enum_param_id[m]['text'] = root[1][i][j][n][m].text
-							data_presentation_dict['data_type'] = ('enum')
-							data_presentation_dict['params'] = (enum_param_id)
+										enum_param_id[n]['text'] = root[1][i][j][n][m].text
+							data_presentation_dict['data_type'] = 'enum'
+							data_presentation_dict['params'] = enum_param_id
 						data_pres = data_presentation_dict  # root[1][i][j].text
 				self.device_dict['elements'].update({addr: {'alias': att_alias,\
 				 'caption': caption, 'rw': rw, 'description': desc, 'type': type_,\
 				  'default_view': def_view, 'data_presentation': data_pres}})
 				self.device_dict['elements']['regs'] += 1
-			print(self.device_dict)									
+			# print(self.device_dict)
 		except:
 			traceback.print_exc()
 
