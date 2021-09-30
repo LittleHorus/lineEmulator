@@ -319,10 +319,10 @@ class CommonWindow(QtWidgets.QWidget):
 						self.fixed_packet[9 + i] = int(str_data_block[i], 16)
 				elif self.tab_wdg.datamode_combobox.currentText() == 'Random':
 					for i in range(data_block_length):
-						self.fixed_packet[9 + i] = np.random.random_integers(0, 255)
+						self.fixed_packet[9 + i] = np.randint(0, 255)
 				elif self.tab_wdg.datamode_combobox.currentText() == 'List':
 					for i in range(data_block_length):
-						self.fixed_packet[9 + i] = np.random.random_integers(0, 255)
+						self.fixed_packet[9 + i] = np.randint(0, 255)
 
 			if int(self.tab_wdg.le_timeout_tab2.text()) != 0:
 				self.timer.start(int(self.tab_wdg.le_timeout_tab2.text()) * 1000)

@@ -129,7 +129,6 @@ class ServerThread(QtCore.QThread):
 			data_response = [0xDA, 0xBA, 0x01, 0x01]
 			print('server send handshake: {}'.format(data_response))
 
-
 		elif ((input_data[1]) & 0x0f) == 0x01 and (
 				((input_data[2]) & 0xf0) == 0x10 or ((input_data[2]) & 0xf0) == 0x20):
 			# print("byte data type, length: {}".format(len(input_data)))
@@ -157,7 +156,7 @@ class ServerThread(QtCore.QThread):
 				data_response = [0] * 6
 				data_response[0] = input_data[0]
 				data_response[1] = 0x11
-				data_response[2] = (input_data[2] & 0x0f) | 0x50
+				data_response[2] = (input_data[2] & 0x0f) | 0x60
 				data_response[3] = input_data[3]  # reg hi
 				data_response[4] = input_data[4]  # reg lo
 
@@ -180,7 +179,7 @@ class ServerThread(QtCore.QThread):
 				data_response = [0] * 7
 				data_response[0] = input_data[0]
 				data_response[1] = 0x11
-				data_response[2] = (input_data[2] & 0x0f) | 0x50
+				data_response[2] = (input_data[2] & 0x0f) | 0x60
 				data_response[3] = input_data[3]  # reg hi
 				data_response[4] = input_data[4]  # reg lo
 
@@ -205,7 +204,7 @@ class ServerThread(QtCore.QThread):
 				data_response = [0] * 9
 				data_response[0] = input_data[0]
 				data_response[1] = 0x11
-				data_response[2] = (input_data[2] & 0x0f) | 0x50
+				data_response[2] = (input_data[2] & 0x0f) | 0x60
 				data_response[3] = input_data[3]  # reg hi
 				data_response[4] = input_data[4]  # reg lo
 
@@ -231,11 +230,12 @@ class ServerThread(QtCore.QThread):
 						data_response[6] = 0
 						data_response[7] = 0
 						data_response[8] = 0
+
 			elif (input_data[2] & 0x0f) == 0x04:  # float data type
 				data_response = [0] * 9
 				data_response[0] = input_data[0]
 				data_response[1] = 0x11
-				data_response[2] = (input_data[2] & 0x0f) | 0x50
+				data_response[2] = (input_data[2] & 0x0f) | 0x60
 				data_response[3] = input_data[3]  # reg hi
 				data_response[4] = input_data[4]  # reg lo
 
@@ -266,7 +266,7 @@ class ServerThread(QtCore.QThread):
 				data_response = [0] * len(input_data)
 				data_response[0] = input_data[0]
 				data_response[1] = 0x11
-				data_response[2] = (input_data[2] & 0x0f) | 0x50
+				data_response[2] = (input_data[2] & 0x0f) | 0x60
 				data_response[3] = input_data[3]  # reg hi
 				data_response[4] = input_data[4]  # reg lo
 				data_response[5] = input_data[5]  # block length
@@ -291,12 +291,22 @@ class ServerThread(QtCore.QThread):
 
 				if ((input_data[2]) & 0xf0) == 0x20:  # read
 					if reg_in_base_bool is True:
-						for i in range(packet_data_length):
+						if packet_data_length != (len(self.server_regs_dict['value'][element_index])+9):
+							data_response = [0] * (len(self.server_regs_dict['value'][element_index])+9)
+							data_response[0] = input_data[0]
+							data_response[1] = 0x11
+							data_response[2] = (input_data[2] & 0x0f) | 0x60
+							data_response[3] = input_data[3]  # reg hi
+							data_response[4] = input_data[4]  # reg lo
+							data_response[5] = input_data[5]  # block length
+							data_response[6] = input_data[6]  # block length
+							data_response[7] = input_data[7]  # block length
+							data_response[8] = input_data[8]  # block length
+						for i in range(len(self.server_regs_dict['value'][element_index])):
 							data_response[9+i] = self.server_regs_dict['value'][element_index][i]
 					else:
 						for i in range(packet_data_length):
 							data_response[9+i] = 0
-
 			else:
 				self.status_signal.emit(
 					"data type unknown: {}, cmd byte: {}".format((input_data[2] & 0x0f), input_data[2]))
